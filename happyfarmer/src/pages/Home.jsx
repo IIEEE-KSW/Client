@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import Search from '../components/Search';
+import logo from '../assets/logo.png';
 
 function Home() {
   return (
     <Body>
       <Container>
-        <Header></Header>
+        <Header>
+          <Logo src={logo} alt='logo'></Logo>
+          <Search></Search>
+        </Header>
         <GraphsSection></GraphsSection>
         <LocationSection></LocationSection>
         <Footer></Footer>
@@ -34,9 +39,22 @@ const Container = styled.div`
 const Header = styled.header`
   width: 100%;
   height: 15%;
-  background: #81c784;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 15%;
+    height: 18%;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+`;
+
+const Logo = styled.img`
+  height: 7vh;
+  margin-left: 2%;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 4vh;
+    margin: 1vh 0;
   }
 `;
 
@@ -68,6 +86,6 @@ const Footer = styled.footer`
   height: 8%;
   background: #388e3c;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 5%;
+    height: 2%;
   }
 `;
