@@ -58,13 +58,13 @@ function Search() {
     <Container>
       <InputContainer>
         <Input
-          type={'text'}
+          type='text'
           onKeyPress={handleKeyPress}
-          placeholder={'Search the ZIP Code'}
+          placeholder='Search the ZIP Code'
           value={zipCode}
           onChange={onChange}
         ></Input>
-        <SearchButton type={'button'} onClick={onReset}>
+        <SearchButton type='button' onClick={onReset}>
           <SearchButtonImage
             src={search}
             alt='search button'
