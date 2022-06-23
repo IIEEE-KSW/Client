@@ -38,22 +38,35 @@ const markers = [
 const Map = () => {
   // Get current location
   const centerRef = useRef({ lat: null, lng: null });
-  useEffect(() => {
-    const getCurLoc = () => {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const coords = {
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          };
-          centerRef.current = coords;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
+
+  const handleGeoSuccess = (pos) => {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+    const coordsObj = {
+      lat,
+      lng,
     };
-    getCurLoc();
+    centerRef.current = coordsObj;
+    setIsGeoLoaded(true);
+  };
+
+  const handleGeoError = (err) => {
+    console.log(err);
+  };
+
+  useEffect(() => {
+    const getGeoLoc = () => {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          handleGeoSuccess,
+          handleGeoError
+        );
+      }
+    };
+    getGeoLoc();
   }, []);
 
   // Googl Map API
@@ -83,31 +96,35 @@ const Map = () => {
   };
 
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={centerRef.current}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      onClick={() => setActiveMarker(null)}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      {markers.map(({ id, name, position }) => (
-        <Marker
-          key={id}
-          position={position}
-          onClick={() => handleActiveMarker(id)}
-        >
-          {activeMarker === id ? (
-            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-              <div>{name}</div>
-            </InfoWindow>
-          ) : null}
-        </Marker>
-      ))}
-    </GoogleMap>
+    isGeoLoaded ? (
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={centerRef.current}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        onClick={() => setActiveMarker(null)}
+      >
+        {/* Child components, such as markers, info windows, etc. */}
+        {markers.map(({ id, name, position }) => (
+          <Marker
+            key={id}
+            position={position}
+            onClick={() => handleActiveMarker(id)}
+          >
+            {activeMarker === id ? (
+              <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                <div>{name}</div>
+              </InfoWindow>
+            ) : null}
+          </Marker>
+        ))}
+      </GoogleMap>
+    ) : (
+      <>Looking for your location...</>
+    )
   ) : (
-    <></>
+    <>Map Loading...</>
   );
 };
 

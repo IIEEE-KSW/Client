@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Search from '../components/Search';
 import logo from '../assets/logo.png';
+import Map from '../components/map';
 
 function Home() {
   return (
@@ -12,7 +13,9 @@ function Home() {
           <Search></Search>
         </Header>
         <GraphsSection></GraphsSection>
-        <LocationSection></LocationSection>
+        <LocationSection>
+          <Map />
+        </LocationSection>
         <Footer></Footer>
       </Container>
     </Body>
