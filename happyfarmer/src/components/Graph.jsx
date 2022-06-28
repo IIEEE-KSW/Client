@@ -154,7 +154,7 @@ export default Graph;
 const Container = styled.div`
   width: 43%;
   height: fit-content;
-  padding: 1vh 2vh;
+  padding: 1.2vh 2.2vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 38%;
@@ -166,7 +166,7 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2vh 0;
+  margin-bottom: 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     margin: 0.5vh 0;
   }

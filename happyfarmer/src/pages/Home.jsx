@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Search from '../components/Search';
 import Graph from '../components/Graph';
 import logo from '../assets/logo.png';
-import Map from '../components/map';
+import Map from '../components/Map';
 
 function Home() {
   return (
@@ -14,7 +14,7 @@ function Home() {
           <Search></Search>
         </Header>
         <GraphsSection>
-          <GraphTitle>Graphs</GraphTitle>
+          <Title>Graphs</Title>
           <GraphContainer>
             <Graph></Graph>
             <Graph></Graph>
@@ -25,7 +25,8 @@ function Home() {
           </GraphContainer>
         </GraphsSection>
         <LocationSection>
-         <Map />
+          <Title>Location</Title>
+          <Map />
         </LocationSection>
         <Footer></Footer>
       </Container>
@@ -82,11 +83,11 @@ const GraphsSection = styled.section`
   }
 `;
 
-const GraphTitle = styled.div`
+const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 25px;
   color: #515151;
-  margin: 2vh;
+  margin: 2vh 0 4vh 3vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 16px;
     margin: 1.5vh;
@@ -97,13 +98,13 @@ const GraphContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 2.3vh;
 `;
 
 const LocationSection = styled.section`
   float: left;
   width: 50%;
   height: 77%;
-  background: #4caf50;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 100%;
     height: 40%;

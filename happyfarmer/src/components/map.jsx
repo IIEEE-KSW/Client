@@ -6,12 +6,14 @@ import {
   Marker,
 } from '@react-google-maps/api';
 import styled from 'styled-components';
-import './map.css';
+import '../css/map.css';
 
 // test data
 const containerStyle = {
-  width: '100%',
-  height: '100%',
+  width: '93%',
+  height: '85%',
+  borderRadius: '15px',
+  margin: '3vh',
 };
 
 const markers = [
