@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Search from '../components/Search';
+import Graph from '../components/Graph';
 import logo from '../assets/logo.png';
 
 function Home() {
@@ -11,7 +12,17 @@ function Home() {
           <Logo src={logo} alt='logo'></Logo>
           <Search></Search>
         </Header>
-        <GraphsSection></GraphsSection>
+        <GraphsSection>
+          <GraphTitle>Graphs</GraphTitle>
+          <GraphContainer>
+            <Graph></Graph>
+            <Graph></Graph>
+          </GraphContainer>
+          <GraphContainer>
+            <Graph></Graph>
+            <Graph></Graph>
+          </GraphContainer>
+        </GraphsSection>
         <LocationSection></LocationSection>
         <Footer></Footer>
       </Container>
@@ -62,11 +73,27 @@ const GraphsSection = styled.section`
   float: left;
   width: 50%;
   height: 77%;
-  background: #66bb6a;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 100%;
     height: 40%;
   }
+`;
+
+const GraphTitle = styled.div`
+  font-family: 'poppinsB';
+  font-size: 25px;
+  color: #515151;
+  margin: 2vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 16px;
+    margin: 1.5vh;
+  }
+`;
+
+const GraphContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LocationSection = styled.section`

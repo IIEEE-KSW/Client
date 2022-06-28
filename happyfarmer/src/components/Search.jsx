@@ -135,6 +135,9 @@ const SearchButton = styled.button`
   outline: none;
   border: none;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 2.3vh;
   }
