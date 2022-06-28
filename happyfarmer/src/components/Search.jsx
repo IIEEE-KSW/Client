@@ -164,6 +164,7 @@ const SearchModal = styled.div`
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   overflow-y: scroll;
   padding: 1vh 0;
+  z-index: 9999;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 21.5vh;
     margin-top: 5.3vh;
