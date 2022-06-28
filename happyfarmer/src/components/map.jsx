@@ -7,6 +7,10 @@ import {
 } from '@react-google-maps/api';
 import styled from 'styled-components';
 import '../css/map.css';
+import temperature from '../assets/temperature.png';
+import moisture from '../assets/moisture.png';
+import anemometer from '../assets/anemometer.png';
+import sun from '../assets/sun.png';
 
 // test data
 const containerStyle = {
@@ -129,19 +133,19 @@ const Map = () => {
                     </Header>
                     <Body>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={temperature} alt='temperature icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={moisture} alt='moisture icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={anemometer} alt='anemometer icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={sun} alt='uv icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                     </Body>
@@ -166,6 +170,7 @@ const Container = styled.div`
   height: 100px;
   padding: 0;
   padding: 10px;
+
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 88%;
   }
@@ -173,19 +178,25 @@ const Container = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 20%;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
-  color: #79bc7b;
-  border-bottom: 2px solid #79bc7b;
-  font-size: 13px;
+  align-items: center;
+  color: #65b065;
+  border-bottom: 1px solid #65b065;
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
+  font-size: 14px;
 `;
 
-const Time = styled.div``;
+const Time = styled.div`
+  font-family: 'poppinsL';
+  font-size: 6px;
+  color: #d1d1d1;
+  margin-right: 2vh;
+`;
 
 const Body = styled.div`
   display: flex;
@@ -194,17 +205,22 @@ const Body = styled.div`
   justify-content: space-around;
   align-content: space-around;
   height: 80%;
-  background-color: #fff;
 `;
 
 const DataContainer = styled.div`
-  padding: 3px 0;
-  font-size: 18px;
-  color: #898686;
+  padding-top: 1vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Icon = styled.span``;
+const Icon = styled.img`
+  height: 3.4vh;
+  margin-right: 1vh;
+`;
 
 const Value = styled.span`
-  font-family: 'poppinsB';
+  font-family: 'poppinsSB';
+  color: #727272;
+  font-size: 16px;
 `;
