@@ -105,7 +105,7 @@ const test = {
         breakpoint: 767,
         options: {
           chart: {
-            height: '100',
+            height: '140',
           },
         },
       },
@@ -154,11 +154,12 @@ export default Graph;
 const Container = styled.div`
   width: 43%;
   height: fit-content;
-  padding: 1.2vh 2.2vh;
+  padding: 0.5vh 2.5vh 1.5vh 2.5vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 38%;
+    width: 85%;
     padding: 0.7vh 1.5vh;
+    margin: 2vh 0;
   }
 `;
 
@@ -168,7 +169,7 @@ const TitleContainer = styled.div`
   align-items: center;
   margin-bottom: 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    margin: 0.5vh 0;
+    margin: 1.2vh 0;
   }
 `;
 
@@ -178,8 +179,8 @@ const DataTitle = styled.div`
   color: #5f5f5f;
   margin-left: 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 10px;
-    margin-left: 0.3vh;
+    font-size: 11px;
+    margin-left: 0.5vh;
   }
 `;
 
@@ -195,7 +196,7 @@ const SettingButton = styled.button`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.3vh;
+    height: 1.6vh;
     margin-right: 0.4vh;
   }
 `;
@@ -203,7 +204,7 @@ const SettingButton = styled.button`
 const SettingButtonImage = styled.img`
   height: 2.5vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.3vh;
+    height: 1.6vh;
   }
 `;
 
@@ -211,19 +212,18 @@ const GraphContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 23vh;
-  padding: 1vh 0.3vh;
+  height: 24vh;
+  padding: 1vh 0;
   background: #ffffff;
   border-radius: 15px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 10vh;
   }
 `;
 
 const ChartContainer = styled.div`
   position: absolute;
-  top: 0;
+  top: 1vh;
   left: 0;
 `;

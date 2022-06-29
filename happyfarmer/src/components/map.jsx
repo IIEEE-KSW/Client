@@ -14,10 +14,19 @@ import sun from '../assets/sun.png';
 
 // test data
 const containerStyle = {
-  width: '93%',
-  height: '85%',
+  width: '97%',
+  height: '66vh',
   borderRadius: '15px',
   margin: '3vh',
+  boxShadow: '1px 3px 6px #8e8e8e29',
+};
+
+const containerStyleR = {
+  width: '90%',
+  height: '45vh',
+  margin: '4vh auto',
+  borderRadius: '15px',
+  boxShadow: '1px 3px 6px #8e8e8e29',
 };
 
 const markers = [
@@ -110,7 +119,13 @@ const Map = () => {
   return isLoaded ? (
     isGeoLoaded ? (
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={
+          matchMedia(
+            'screen and (max-width: 767px) and (orientation: portrait)'
+          ).matches
+            ? containerStyleR
+            : containerStyle
+        }
         center={centerRef.current}
         zoom={10}
         onLoad={onLoad}
@@ -122,7 +137,7 @@ const Map = () => {
             <Marker
               key={id}
               position={position}
-              onClick={() => handleActiveMarker(id)}
+              onMouseOver={() => handleActiveMarker(id)}
             >
               {activeMarker === id && (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
@@ -169,11 +184,7 @@ const Container = styled.div`
   width: 170px;
   height: 100px;
   padding: 0;
-  padding: 10px;
-
-  @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 88%;
-  }
+  padding: 2vh;
 `;
 
 const Header = styled.div`
