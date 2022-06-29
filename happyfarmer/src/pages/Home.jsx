@@ -27,7 +27,7 @@ function Home() {
         <Title>Location</Title>
         <Map />
       </LocationSection>
-      <Footer></Footer>
+      <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
   );
 }
@@ -107,6 +107,7 @@ const GraphContainer = styled.div`
 const LocationSection = styled.section`
   float: left;
   width: 45%;
+  padding-bottom: 3%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 90%;
     margin-top: 5vh;
@@ -116,7 +117,12 @@ const LocationSection = styled.section`
 const Footer = styled.footer`
   clear: both;
   width: 100%;
-  background: #388e3c;
+  padding: 4vh 0 4vh 0;
+  background: #f4f4f4;
+  font-family: 'poppinsL';
+  font-size: 10px;
+  text-align: center;
+  color: #5e5e5e;
   @media screen and (max-width: 767px) and (orientation: portrait) {
   }
 `;
