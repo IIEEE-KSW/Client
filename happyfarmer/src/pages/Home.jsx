@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Search from '../components/Search';
 import Graph from '../components/Graph';
 import logo from '../assets/logo.png';
-import Map from '../components/Map';
+import Map from '../components/map';
 
 function Home() {
   return (

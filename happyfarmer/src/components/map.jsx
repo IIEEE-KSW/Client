@@ -6,7 +6,7 @@ import {
   Marker,
 } from '@react-google-maps/api';
 import styled from 'styled-components';
-import '../css/map.css';
+import './map.css';
 import temperature from '../assets/temperature.png';
 import moisture from '../assets/moisture.png';
 import anemometer from '../assets/anemometer.png';
