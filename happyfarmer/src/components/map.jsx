@@ -10,7 +10,7 @@ import './map.css';
 import temperature from '../assets/temperature.png';
 import humidity from '../assets/humidity.png';
 import anemometer from '../assets/anemometer.png';
-import uv from '../assets/ultraviolet.png';
+import uv from '../assets/uv.png';
 
 // test data
 const containerStyle = {
