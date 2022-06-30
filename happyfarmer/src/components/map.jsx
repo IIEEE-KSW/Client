@@ -153,11 +153,11 @@ const Map = () => {
                       </DataContainer>
                       <DataContainer>
                         <Icon src={moisture} alt='moisture icon'></Icon>
-                        <Value>67 Fº</Value>
+                        <Value>83 %</Value>
                       </DataContainer>
                       <DataContainer>
                         <Icon src={anemometer} alt='anemometer icon'></Icon>
-                        <Value>67 Fº</Value>
+                        <Value>20 ㎧</Value>
                       </DataContainer>
                       <DataContainer>
                         <Icon src={sun} alt='uv icon'></Icon>
@@ -185,6 +185,11 @@ const Container = styled.div`
   height: 100px;
   padding: 0;
   padding: 2vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    width: 120px;
+    height: 80px;
+    padding: 1vh;
+  }
 `;
 
 const Header = styled.div`
@@ -195,11 +200,16 @@ const Header = styled.div`
   align-items: center;
   color: #65b065;
   border-bottom: 1px solid #65b065;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+  }
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 14px;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 12px;
+  }
 `;
 
 const Time = styled.div`
@@ -207,6 +217,10 @@ const Time = styled.div`
   font-size: 6px;
   color: #d1d1d1;
   margin-right: 2vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 3px;
+    margin-right: 0;
+  }
 `;
 
 const Body = styled.div`
@@ -223,15 +237,25 @@ const DataContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    padding-top: 0.3vh;
+  }
 `;
 
 const Icon = styled.img`
   height: 3.4vh;
   margin-right: 1vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 2vh;
+    margin-right: 0.6vh;
+  }
 `;
 
 const Value = styled.span`
   font-family: 'poppinsSB';
   color: #727272;
   font-size: 16px;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 13px;
+  }
 `;
