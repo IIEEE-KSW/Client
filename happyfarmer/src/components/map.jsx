@@ -8,9 +8,9 @@ import {
 import styled from 'styled-components';
 import './map.css';
 import temperature from '../assets/temperature.png';
-import moisture from '../assets/moisture.png';
+import humidity from '../assets/humidity.png';
 import anemometer from '../assets/anemometer.png';
-import sun from '../assets/sun.png';
+import uv from '../assets/ultraviolet.png';
 
 // test data
 const containerStyle = {
@@ -152,7 +152,7 @@ const Map = () => {
                         <Value>67 Fº</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon src={moisture} alt='moisture icon'></Icon>
+                        <Icon src={humidity} alt='humidity icon'></Icon>
                         <Value>83 %</Value>
                       </DataContainer>
                       <DataContainer>
@@ -160,7 +160,7 @@ const Map = () => {
                         <Value>20 ㎧</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon src={sun} alt='uv icon'></Icon>
+                        <Icon src={uv} alt='uv icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                     </Body>
