@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactApexChart from 'react-apexcharts';
+import Setting from './Setting';
 import setting from '../assets/settings.png';
 
 // const donutData = {
@@ -124,28 +125,32 @@ const test = {
 };
 
 function Graph() {
+  const [toggle, setToggle] = useState(false);
   return (
-    <Container>
-      <TitleContainer>
-        <DataTitle>Temperature</DataTitle>
-        <SettingButton type='button'>
-          <SettingButtonImage
-            src={setting}
-            alt='setting button'
-          ></SettingButtonImage>
-        </SettingButton>
-      </TitleContainer>
-      <GraphContainer>
-        <ChartContainer>
-          <ReactApexChart
-            options={test.options}
-            series={test.series}
-            type='line'
-            height={160}
-          ></ReactApexChart>
-        </ChartContainer>
-      </GraphContainer>
-    </Container>
+    <>
+      {toggle && <Setting></Setting>}
+      <Container>
+        <TitleContainer>
+          <DataTitle>Temperature</DataTitle>
+          <SettingButton type='button' onClick={() => setToggle(!toggle)}>
+            <SettingButtonImage
+              src={setting}
+              alt='setting button'
+            ></SettingButtonImage>
+          </SettingButton>
+        </TitleContainer>
+        <GraphContainer>
+          <ChartContainer>
+            <ReactApexChart
+              options={test.options}
+              series={test.series}
+              type='line'
+              height={160}
+            ></ReactApexChart>
+          </ChartContainer>
+        </GraphContainer>
+      </Container>
+    </>
   );
 }
 
