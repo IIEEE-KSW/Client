@@ -26,27 +26,26 @@ function Home() {
 
   return (
     <Body>
-      <Container>
-        <Header>
-          <Logo src={logo} alt='logo'></Logo>
-          <Search></Search>
-        </Header>
-        <GraphsSection>
-          <GraphTitle>Graphs {test}</GraphTitle>
-          <GraphContainer>
-            <Graph></Graph>
-            <Graph></Graph>
-          </GraphContainer>
-          <GraphContainer>
-            <Graph></Graph>
-            <Graph></Graph>
-          </GraphContainer>
-        </GraphsSection>
-        <LocationSection>
-          <Map />
-        </LocationSection>
-        <Footer></Footer>
-      </Container>
+      <Header>
+        <Logo src={logo} alt='logo'></Logo>
+        <Search></Search>
+      </Header>
+      <GraphsSection>
+        <Title>Graphs</Title>
+        <GraphContainer>
+          <Graph></Graph>
+          <Graph></Graph>
+        </GraphContainer>
+        <GraphContainer>
+          <Graph></Graph>
+          <Graph></Graph>
+        </GraphContainer>
+      </GraphsSection>
+      <LocationSection>
+        <Title>Location</Title>
+        <Map />
+      </LocationSection>
+      <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
   );
 }
@@ -57,54 +56,54 @@ const Body = styled.body`
   padding: 0;
   margin: 0;
   background: #f1f1f1;
-`;
-
-const Container = styled.div`
-  width: 85%;
-  height: 100vh;
-  margin: 0 auto;
+  height: 100%;
+  overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 88%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 `;
 
 const Header = styled.header`
   width: 100%;
-  height: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5vh 0;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 18%;
+    width: 90%;
     flex-direction: column;
     justify-content: space-evenly;
+    padding: 3vh 0;
   }
 `;
 
 const Logo = styled.img`
   height: 7vh;
-  margin-left: 2%;
+  margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 4vh;
-    margin: 1vh 0;
+    margin: 3vh 0;
   }
 `;
 
 const GraphsSection = styled.section`
   float: left;
-  width: 50%;
-  height: 77%;
+  width: 45%;
+  margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 100%;
-    height: 40%;
+    width: 90%;
+    margin: 0;
   }
 `;
 
-const GraphTitle = styled.div`
+const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 25px;
   color: #515151;
-  margin: 2vh;
+  margin: 2vh 0 3.5vh 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 16px;
     margin: 1.5vh;
@@ -113,27 +112,35 @@ const GraphTitle = styled.div`
 
 const GraphContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  margin-top: 2.3vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0;
+  }
 `;
 
 const LocationSection = styled.section`
   float: left;
-  width: 50%;
-  height: 77%;
-  background: #4caf50;
+  width: 45%;
+  padding-bottom: 3%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 100%;
-    height: 40%;
+    width: 90%;
+    margin-top: 5vh;
   }
 `;
 
 const Footer = styled.footer`
   clear: both;
   width: 100%;
-  height: 8%;
-  background: #388e3c;
+  padding: 4vh 0 4vh 0;
+  background: #f4f4f4;
+  font-family: 'poppinsL';
+  font-size: 10px;
+  text-align: center;
+  color: #5e5e5e;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 2%;
   }
 `;

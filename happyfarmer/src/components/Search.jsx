@@ -92,10 +92,10 @@ export default Search;
 
 const Container = styled.div`
   width: 37%;
-  margin-right: 2%;
+  margin-right: 5%;
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 90%;
+    width: 96%;
     margin: 0;
   }
 `;
@@ -109,8 +109,8 @@ const InputContainer = styled.div`
   border-radius: 15px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    border-radius: 13px;
-    padding: 1.1vh 0;
+    border-radius: 12px;
+    padding: 1.6vh 0;
   }
 `;
 
@@ -164,6 +164,7 @@ const SearchModal = styled.div`
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   overflow-y: scroll;
   padding: 1vh 0;
+  z-index: 9999;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 21.5vh;
     margin-top: 5.3vh;
