@@ -103,6 +103,14 @@ const test = {
     },
     responsive: [
       {
+        breakpoint: 1174,
+        options: {
+          chart: {
+            width: '100%',
+          },
+        },
+      },
+      {
         breakpoint: 767,
         options: {
           chart: {
@@ -124,30 +132,29 @@ const test = {
   },
 };
 
-function Graph() {
-  const [toggle, setToggle] = useState(false);
+function Graph({ toggle }) {
+  const [open, setOpen] = useState(false);
+  const getState = (open) => {
+    setOpen(open);
+  };
   return (
     <>
-      {toggle && <Setting></Setting>}
+      {open && <Setting open={open} getState={getState} />}
       <Container>
         <TitleContainer>
           <DataTitle>Temperature</DataTitle>
-          <SettingButton type='button' onClick={() => setToggle(!toggle)}>
-            <SettingButtonImage
-              src={setting}
-              alt='setting button'
-            ></SettingButtonImage>
+          <SettingButton type='button' onClick={() => setOpen(true)}>
+            <SettingButtonImage src={setting} alt='setting button' />
           </SettingButton>
         </TitleContainer>
         <GraphContainer>
-          <ChartContainer>
-            <ReactApexChart
-              options={test.options}
-              series={test.series}
-              type='line'
-              height={160}
-            ></ReactApexChart>
-          </ChartContainer>
+          <ReactApexChart
+            options={test.options}
+            series={test.series}
+            type='line'
+            height={toggle ? 150 : 320}
+            width={toggle ? '100%' : 430}
+          />
         </GraphContainer>
       </Container>
     </>
@@ -157,13 +164,12 @@ function Graph() {
 export default Graph;
 
 const Container = styled.div`
-  width: 43%;
+  width: 93%;
   height: fit-content;
   padding: 0.5vh 2.5vh 1.5vh 2.5vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 85%;
-    padding: 0.7vh 1.5vh;
+    width: 93%;
     margin: 2vh 0;
   }
 `;
@@ -217,18 +223,9 @@ const GraphContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 24vh;
-  padding: 1vh 0;
+  height: fit-content;
   background: #ffffff;
+  padding-top: 1vh;
   border-radius: 15px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
-  position: relative;
-  @media screen and (max-width: 767px) and (orientation: portrait) {
-  }
-`;
-
-const ChartContainer = styled.div`
-  position: absolute;
-  top: 1vh;
-  left: 0;
 `;
