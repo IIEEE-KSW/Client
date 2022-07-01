@@ -1,13 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-import logo from '../assets/logo.png';
 import Map from '../components/map';
+
+import logo from '../assets/logo.png';
+import select from '../assets/select.png';
+import selectOff from '../assets/selectoff.png';
 
 import { getSensorList } from '../apis/api';
 
 function Home() {
+  const [toggle, setToggle] = useState(true);
+
   useEffect(() => {
     // API를 각 위치에서 호출하는 경우
     // const getStationList = async () => {
@@ -24,22 +33,51 @@ function Home() {
     });
   }, []);
 
+  const sliderSetting = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    adaptiveHeight: true,
+  };
+
   return (
     <Body>
       <Header>
         <Logo src={logo} alt='logo'></Logo>
-        <Search></Search>
+        <Search />
       </Header>
       <GraphsSection>
-        <Title>Graphs</Title>
-        <GraphContainer>
-          <Graph></Graph>
-          <Graph></Graph>
-        </GraphContainer>
-        <GraphContainer>
-          <Graph></Graph>
-          <Graph></Graph>
-        </GraphContainer>
+        <TitleContainer>
+          <Title>Graphs</Title>
+          <SelectButton type='button' onClick={() => setToggle(!toggle)}>
+            <SelectButtonImage
+              src={toggle ? select : selectOff}
+              alt='select button'
+            />
+          </SelectButton>
+        </TitleContainer>
+        {toggle ? (
+          <>
+            <GraphContainer>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </GraphContainer>
+            <GraphContainer>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </GraphContainer>
+          </>
+        ) : (
+          <SliderContainer>
+            <StyledSlider {...sliderSetting}>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </StyledSlider>
+          </SliderContainer>
+        )}
       </GraphsSection>
       <LocationSection>
         <Title>Location</Title>
@@ -99,6 +137,12 @@ const GraphsSection = styled.section`
   }
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 25px;
@@ -110,16 +154,50 @@ const Title = styled.div`
   }
 `;
 
+const SelectButton = styled.button`
+  width: 7%;
+  height: 4vh;
+  margin-right: 5vh;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SelectButtonImage = styled.img`
+  height: 4vh;
+  border-radius: 50%;
+  box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.3);
+`;
+
 const GraphContainer = styled.div`
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-top: 2.3vh;
+  margin-top: 1.4vh;
+  height: 45%;
+  overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     flex-direction: column;
     justify-content: center;
     margin-top: 0;
   }
+`;
+
+const SliderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledSlider = styled(Slider)`
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LocationSection = styled.section`

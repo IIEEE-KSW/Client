@@ -27,8 +27,11 @@ const onHandle = (props) => {
   );
 };
 
-function Setting() {
-  const [open, setOpen] = useState(true);
+function Setting({ open, getState }) {
+  const onClick = () => {
+    getState(!open);
+  };
+
   const [range, setRange] = useState({
     lower: 20,
     upper: 40,
@@ -76,7 +79,7 @@ function Setting() {
           <ModalContainer>
             <Header>
               <Title>Setting</Title>
-              <XButton type='button' onClick={() => setOpen(false)}>
+              <XButton type='button' onClick={onClick}>
                 <XButtonImage src={cancel} alt='cancel button'></XButtonImage>
               </XButton>
             </Header>
@@ -92,10 +95,9 @@ function Setting() {
                 handle={onHandle}
               ></Slider>
             </SliderContainer>
-
             <ButtonContainer>
-              <CancelButton onClick={() => setOpen(false)}>CANCEL</CancelButton>
-              <OkButton onClick={() => setOpen(false)}>OK</OkButton>
+              <CancelButton onClick={onClick}>CANCEL</CancelButton>
+              <OkButton onClick={onClick}>OK</OkButton>
             </ButtonContainer>
           </ModalContainer>
         </Container>
@@ -107,13 +109,13 @@ function Setting() {
 export default Setting;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background: #242424b7;
-  z-index: 9999;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
