@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Search from '../components/Search';
 import Graph from '../components/Graph';
 import logo from '../assets/logo.png';
 import Map from '../components/map';
 
+import { getSensorList } from '../apis/api';
+
 function Home() {
+  useEffect(() => {
+    // API를 각 위치에서 호출하는 경우
+    // const getStationList = async () => {
+    //   try {
+    //     const res = await http.get(`/todos/1`);
+    //     setTest(res.data.title);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // };
+    // API들을 모듈화해서 호출하는 경우
+    getSensorList().then((data) => {
+      console.log(data);
+    });
+  }, []);
+
   return (
     <Body>
       <Header>
