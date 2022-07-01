@@ -32,7 +32,7 @@ function Home() {
           <Search></Search>
         </Header>
         <GraphsSection>
-          <GraphTitle>Graphs {test}</GraphTitle>
+          <GraphTitle>Graphs</GraphTitle>
           <GraphContainer>
             <Graph></Graph>
             <Graph></Graph>

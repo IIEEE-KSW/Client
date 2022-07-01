@@ -5,10 +5,10 @@ const isError = (e) => {
 };
 
 //test
-export const getSensorList = async (callback) => {
+export const getSensorList = async () => {
   try {
     const res = await http.get(`/api/v1/sensors`);
-    console.log(res);
+    return res;
   } catch (e) {
     isError(e);
   }
