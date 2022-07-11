@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import search from '../assets/search.png';
-import pin from '../assets/pin.png';
-import { findByLabelText } from '@testing-library/react';
 
 const options = [
   { value: 47904, label: 47904 },
@@ -56,7 +53,7 @@ function Search() {
     <Container>
       <SelectContainer>
         <Select
-          placeholder='Find your Farm by Zipcode'
+          placeholder='Find by Zipcode'
           styles={customStyles}
           options={options}
           onChange={handleSelectItem}
@@ -69,7 +66,7 @@ function Search() {
 export default Search;
 
 const Container = styled.div`
-  width: 37%;
+  width: 20%;
   margin-right: 2%;
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
