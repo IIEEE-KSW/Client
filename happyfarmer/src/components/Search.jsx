@@ -12,28 +12,28 @@ const customStyles = {
   option: (provided, state) => ({
     ...provided,
     color: '#5f5f5f',
-    padding: 20,
-    zIndex: 1,
+    padding: 17,
+
     background: state.isFocused
-      ? '#ececec'
+      ? '#f0f0f0'
       : state.isSelected
       ? '#ffffff'
-      : undefined,
+      : '#ffffff',
     ':active': {
-      backgroundColor: undefined,
+      backgroundColor: '#ffffff',
     },
   }),
   menu: (provided, state) => ({
     ...provided,
     width: '100%',
     fontFamily: 'poppinsM',
-    fontSize: '14px',
+    fontSize: '13px',
   }),
   control: (base, state) => ({
     ...base,
     border: 0,
-    fontFamily: 'poppinsM',
-    fontSize: '14px',
+    fontFamily: state.isFocused ? 'poppinsSB' : 'poppinsM',
+    fontSize: '13px',
     // This line disable the blue border
     boxShadow: 'none',
   }),
@@ -66,22 +66,21 @@ function Search() {
 export default Search;
 
 const Container = styled.div`
-  width: 20%;
-  margin-right: 2%;
+  width: 22%;
+  margin-right: 5%;
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 96%;
+    width: 90%;
     margin: 0;
   }
 `;
 
 const SelectContainer = styled.div`
-  padding: 1.2vh 1vh;
+  padding: 1vh 0.7vh;
   background: #ffffff;
-  border-radius: 15px;
+  border-radius: 12px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    border-radius: 12px;
-    padding: 1.6vh 0;
+    padding: 0.2vh 1vh;
   }
 `;
