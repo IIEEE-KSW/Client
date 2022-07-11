@@ -157,7 +157,7 @@ const Title = styled.div`
 const SelectButton = styled.button`
   width: 7%;
   height: 4vh;
-  margin-right: 5vh;
+  margin-right: 2vh;
   background: transparent;
   outline: none;
   border: none;

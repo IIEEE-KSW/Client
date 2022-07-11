@@ -4,58 +4,27 @@ import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
 
-// const donutData = {
-//   series: [50, 40, 30, 10, 0],
-//   options: {
-//     chart: {
-//       type: 'donut',
-//     },
-//     legend: {
-//       position: 'bottom',
-//     },
-//     responsive: [
-//       {
-//         breakpoint: 480,
-//       },
-//     ],
-//     plotOptions: {
-//       pie: {
-//         donut: {
-//           // hollow: {
-//           //   margin: 15,
-//           //   size: '70%',
-//           //   image: '../../css/images/a-icon.jpg',
-//           //   imageWidth: 64,
-//           //   imageHeight: 64,
-//           //   imageClipped: false
-//           // },
-//           labels: {
-//             show: true,
-//             total: {
-//               showAlways: true,
-//               show: true,
-//               label: 'ALARM',
-//               fontSize: '12px',
-//               color: 'red',
-//             },
-//             value: {
-//               fontSize: '22px',
-//               show: true,
-//               color: 'blue',
-//             },
-//           },
-//         },
-//       },
-//     },
-//     labels: ['침입', '배회', '쓰러짐', '화재', '안전모'],
-//     title: {
-//       text: '이벤트별 통계',
-//       align: 'center',
-//     },
-//   },
-// };
-
 const test = {
+  // annotations: {
+  //   yaxis: [
+  //     {
+  //       y: 33,
+  //       y2: 26,
+  //       borderColor: '#000',
+  //       fillColor: '#FEB019',
+  //       opacity: 0.2,
+  //       label: {
+  //         borderColor: '#333',
+  //         style: {
+  //           fontSize: '10px',
+  //           color: '#333',
+  //           background: '#FEB019',
+  //         },
+  //         text: 'Y-axis range',
+  //       },
+  //     },
+  //   ],
+  // },
   series: [
     {
       name: 'Desktops',
@@ -68,6 +37,7 @@ const test = {
       stacked: false,
       foreColor: '#a8a8a8',
       fontFamily: 'poppinsM',
+      parentHeightOffset: 0,
       zoom: {
         type: 'x',
         enabled: true,
@@ -107,6 +77,7 @@ const test = {
         options: {
           chart: {
             width: '100%',
+            parentHeightOffset: 0,
           },
         },
       },
@@ -115,6 +86,7 @@ const test = {
         options: {
           chart: {
             height: '140',
+            parentHeightOffset: 0,
           },
         },
       },
@@ -125,6 +97,8 @@ const test = {
   },
   yaxis: {
     labels: {
+      minWidth: 8,
+      maxWidth: 15,
       formatter: function (data) {
         return (data / 100000000).toFixed(0);
       },
@@ -166,7 +140,7 @@ export default Graph;
 const Container = styled.div`
   width: 93%;
   height: fit-content;
-  padding: 0.5vh 2.5vh 1.5vh 2.5vh;
+  padding: 0.5vh 2.5vh 2.1vh 2.5vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 93%;
