@@ -7,11 +7,26 @@ import {
 } from '@react-google-maps/api';
 import styled from 'styled-components';
 import './map.css';
+import temperature from '../assets/temperature.png';
+import humidity from '../assets/humidity.png';
+import anemometer from '../assets/anemometer.png';
+import uv from '../assets/uv.png';
 
 // test data
 const containerStyle = {
-  width: '100%',
-  height: '100%',
+  width: '97%',
+  height: '66vh',
+  borderRadius: '15px',
+  margin: '3vh',
+  boxShadow: '1px 3px 6px #8e8e8e29',
+};
+
+const containerStyleR = {
+  width: '90%',
+  height: '45vh',
+  margin: '4vh auto',
+  borderRadius: '15px',
+  boxShadow: '1px 3px 6px #8e8e8e29',
 };
 
 const markers = [
@@ -104,7 +119,13 @@ const Map = () => {
   return isLoaded ? (
     isGeoLoaded ? (
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={
+          matchMedia(
+            'screen and (max-width: 767px) and (orientation: portrait)'
+          ).matches
+            ? containerStyleR
+            : containerStyle
+        }
         center={centerRef.current}
         zoom={10}
         onLoad={onLoad}
@@ -116,7 +137,7 @@ const Map = () => {
             <Marker
               key={id}
               position={position}
-              onClick={() => handleActiveMarker(id)}
+              onMouseOver={() => handleActiveMarker(id)}
             >
               {activeMarker === id && (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
@@ -127,19 +148,19 @@ const Map = () => {
                     </Header>
                     <Body>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={temperature} alt='temperature icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
-                        <Value>67 Fº</Value>
+                        <Icon src={humidity} alt='humidity icon'></Icon>
+                        <Value>83 %</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
-                        <Value>67 Fº</Value>
+                        <Icon src={anemometer} alt='anemometer icon'></Icon>
+                        <Value>20 ㎧</Value>
                       </DataContainer>
                       <DataContainer>
-                        <Icon>🧪</Icon>
+                        <Icon src={uv} alt='uv icon'></Icon>
                         <Value>67 Fº</Value>
                       </DataContainer>
                     </Body>
@@ -163,27 +184,44 @@ const Container = styled.div`
   width: 170px;
   height: 100px;
   padding: 0;
-  padding: 10px;
+  padding: 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 88%;
+    width: 120px;
+    height: 80px;
+    padding: 1vh;
   }
 `;
 
 const Header = styled.div`
   width: 100%;
-  height: 20%;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
-  color: #79bc7b;
-  border-bottom: 2px solid #79bc7b;
-  font-size: 13px;
+  align-items: center;
+  color: #65b065;
+  border-bottom: 1px solid #65b065;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+  }
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
+  font-size: 14px;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 12px;
+  }
 `;
 
-const Time = styled.div``;
+const Time = styled.div`
+  font-family: 'poppinsL';
+  font-size: 6px;
+  color: #d1d1d1;
+  margin-right: 2vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 3px;
+    margin-right: 0;
+  }
+`;
 
 const Body = styled.div`
   display: flex;
@@ -192,17 +230,32 @@ const Body = styled.div`
   justify-content: space-around;
   align-content: space-around;
   height: 80%;
-  background-color: #fff;
 `;
 
 const DataContainer = styled.div`
-  padding: 3px 0;
-  font-size: 18px;
-  color: #898686;
+  padding-top: 1vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    padding-top: 0.3vh;
+  }
 `;
 
-const Icon = styled.span``;
+const Icon = styled.img`
+  height: 3.4vh;
+  margin-right: 1vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 2vh;
+    margin-right: 0.6vh;
+  }
+`;
 
 const Value = styled.span`
-  font-family: 'poppinsB';
+  font-family: 'poppinsSB';
+  color: #727272;
+  font-size: 16px;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 13px;
+  }
 `;

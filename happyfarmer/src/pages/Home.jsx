@@ -1,13 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-import logo from '../assets/logo.png';
 import Map from '../components/map';
+
+import logo from '../assets/logo.png';
+import select from '../assets/select.png';
+import selectOff from '../assets/selectoff.png';
 
 import { getSensorList } from '../apis/api';
 
 function Home() {
+  const [toggle, setToggle] = useState(true);
+
   useEffect(() => {
     // API를 각 위치에서 호출하는 경우
     // const getStationList = async () => {
@@ -24,29 +33,57 @@ function Home() {
     });
   }, []);
 
+  const sliderSetting = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    adaptiveHeight: true,
+  };
+
   return (
     <Body>
-      <Container>
-        <Header>
-          <Logo src={logo} alt='logo'></Logo>
-          <Search></Search>
-        </Header>
-        <GraphsSection>
-          <GraphTitle>Graphs</GraphTitle>
-          <GraphContainer>
-            <Graph></Graph>
-            <Graph></Graph>
-          </GraphContainer>
-          <GraphContainer>
-            <Graph></Graph>
-            <Graph></Graph>
-          </GraphContainer>
-        </GraphsSection>
-        <LocationSection>
-          <Map />
-        </LocationSection>
-        <Footer></Footer>
-      </Container>
+      <Header>
+        <Logo src={logo} alt='logo'></Logo>
+        <Search />
+      </Header>
+      <GraphsSection>
+        <TitleContainer>
+          <Title>Graphs</Title>
+          <SelectButton type='button' onClick={() => setToggle(!toggle)}>
+            <SelectButtonImage
+              src={toggle ? select : selectOff}
+              alt='select button'
+            />
+          </SelectButton>
+        </TitleContainer>
+        {toggle ? (
+          <>
+            <GraphContainer>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </GraphContainer>
+            <GraphContainer>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </GraphContainer>
+          </>
+        ) : (
+          <SliderContainer>
+            <StyledSlider {...sliderSetting}>
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+              <Graph toggle={toggle} />
+            </StyledSlider>
+          </SliderContainer>
+        )}
+      </GraphsSection>
+      <LocationSection>
+        <Title>Location</Title>
+        <Map />
+      </LocationSection>
+      <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
   );
 }
@@ -57,61 +94,107 @@ const Body = styled.body`
   padding: 0;
   margin: 0;
   background: #f1f1f1;
-`;
-
-const Container = styled.div`
-  width: 85%;
-  height: 100vh;
-  margin: 0 auto;
+  height: 100%;
+  overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 88%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 `;
 
 const Header = styled.header`
   width: 100%;
-  height: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5vh 0;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 18%;
+    width: 90%;
     flex-direction: column;
     justify-content: space-evenly;
+    padding: 3vh 0;
   }
 `;
 
 const Logo = styled.img`
   height: 7vh;
-  margin-left: 2%;
+  margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 4vh;
-    margin: 1vh 0;
+    margin: 3vh 0;
   }
 `;
 
 const GraphsSection = styled.section`
   float: left;
-  width: 50%;
-  height: 77%;
+  width: 45%;
+  margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 100%;
-    height: 40%;
+    width: 90%;
+    margin: 0;
   }
 `;
 
-const GraphTitle = styled.div`
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 25px;
   color: #515151;
-  margin: 2vh;
+  margin: 2vh 0 3.5vh 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 16px;
     margin: 1.5vh;
   }
 `;
 
+const SelectButton = styled.button`
+  width: 7%;
+  height: 4vh;
+  margin-right: 5vh;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SelectButtonImage = styled.img`
+  height: 4vh;
+  border-radius: 50%;
+  box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.3);
+`;
+
 const GraphContainer = styled.div`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 1.4vh;
+  height: 45%;
+  overflow: hidden;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0;
+  }
+`;
+
+const SliderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledSlider = styled(Slider)`
+  width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,21 +202,23 @@ const GraphContainer = styled.div`
 
 const LocationSection = styled.section`
   float: left;
-  width: 50%;
-  height: 77%;
-  background: #4caf50;
+  width: 45%;
+  padding-bottom: 3%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 100%;
-    height: 40%;
+    width: 90%;
+    margin-top: 5vh;
   }
 `;
 
 const Footer = styled.footer`
   clear: both;
   width: 100%;
-  height: 8%;
-  background: #388e3c;
+  padding: 4vh 0 4vh 0;
+  background: #f4f4f4;
+  font-family: 'poppinsL';
+  font-size: 10px;
+  text-align: center;
+  color: #5e5e5e;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 2%;
   }
 `;

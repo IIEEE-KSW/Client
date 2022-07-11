@@ -70,7 +70,7 @@ const Container = styled.div`
   margin-right: 2%;
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 90%;
+    width: 96%;
     margin: 0;
   }
 `;
@@ -81,7 +81,7 @@ const SelectContainer = styled.div`
   border-radius: 15px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    border-radius: 13px;
-    padding: 1.1vh 0;
+    border-radius: 12px;
+    padding: 1.6vh 0;
   }
 `;
