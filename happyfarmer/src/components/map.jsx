@@ -12,6 +12,8 @@ import humidity from '../assets/humidity.png';
 import anemometer from '../assets/anemometer.png';
 import uv from '../assets/uv.png';
 
+import { useSelector } from 'react-redux';
+
 // test data
 const containerStyle = {
   width: '97%',
@@ -89,6 +91,10 @@ const Map = () => {
     };
     getGeoLoc();
   }, []);
+
+  //update information by user select (REDUX TEST)
+  const stationId = useSelector(({ station }) => station.id);
+  console.log(stationId);
 
   // Googl Map API
   const [map, setMap] = useState(null);

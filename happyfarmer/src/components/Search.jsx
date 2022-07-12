@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 
-import { getStationList, getStation } from '../apis/api';
+import { getStationList } from '../apis/api';
+
+import { useDispatch } from 'react-redux';
+import { setId } from '../modules/station';
 
 const customStyles = {
   option: (provided, state) => ({
@@ -43,6 +46,9 @@ const customStyles = {
 function Search() {
   const [options, setOptions] = useState([]);
 
+  const dispatch = useDispatch();
+  const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
+
   useEffect(() => {
     getStationList().then((res) => {
       const data = res.data;
@@ -56,9 +62,7 @@ function Search() {
 
   const handleSelectItem = (e) => {
     const id = e.value;
-    getStation(id).then((res) => {
-      console.log(res); //graph와 map을 해당 정보로 업데이트
-    });
+    setStationId(id);
   };
 
   return (
