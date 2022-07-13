@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 
-const options = [
-  { value: 47904, label: 47904 },
-  { value: 47905, label: 47905 },
-  { value: 47906, label: 47906 },
-];
+import { getStationList } from '../apis/api';
+
+import { useDispatch } from 'react-redux';
+import { setId } from '../modules/station';
 
 const customStyles = {
   option: (provided, state) => ({
@@ -44,8 +43,25 @@ const customStyles = {
 };
 
 function Search() {
+  const [options, setOptions] = useState([]);
+
+  const dispatch = useDispatch();
+  const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
+
+  useEffect(() => {
+    getStationList().then((res) => {
+      const data = res.data;
+      const options = data.map((d) => ({
+        value: d.id,
+        label: d.location.zipCode,
+      }));
+      setOptions(options);
+    });
+  }, []);
+
   const handleSelectItem = (e) => {
-    console.log(e);
+    const id = e.value;
+    setStationId(id);
   };
 
   return (
