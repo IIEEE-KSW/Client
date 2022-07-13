@@ -14,6 +14,8 @@ import selectOff from '../assets/selectoff.png';
 
 import { getSensorList } from '../apis/api';
 
+import { data } from '../components/graphdata';
+
 function Home() {
   const [toggle, setToggle] = useState(true);
 
@@ -60,21 +62,53 @@ function Home() {
         {toggle ? (
           <>
             <GraphContainer>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
+              <Graph
+                toggle={toggle}
+                dataType={data.temperature}
+                title='Temperature'
+              />
+              <Graph
+                toggle={toggle}
+                dataType={data.humidity}
+                title='Humidity'
+              />
             </GraphContainer>
             <GraphContainer>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
+              <Graph
+                toggle={toggle}
+                dataType={data.sunlight}
+                title='Sunlight'
+              />
+              <Graph
+                toggle={toggle}
+                dataType={data.windspeed}
+                title='Windspeed'
+              />
             </GraphContainer>
           </>
         ) : (
           <SliderContainer>
             <StyledSlider {...sliderSetting}>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
+              <Graph
+                toggle={toggle}
+                dataType={data.temperature}
+                title='Temperature'
+              />
+              <Graph
+                toggle={toggle}
+                dataType={data.humidity}
+                title='Humidity'
+              />
+              <Graph
+                toggle={toggle}
+                dataType={data.sunlight}
+                title='Sunlight'
+              />
+              <Graph
+                toggle={toggle}
+                dataType={data.windspeed}
+                title='Windspeed'
+              />
             </StyledSlider>
           </SliderContainer>
         )}

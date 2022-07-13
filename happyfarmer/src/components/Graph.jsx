@@ -4,109 +4,109 @@ import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
 
-const test = {
-  // annotations: {
-  //   yaxis: [
-  //     {
-  //       y: 33,
-  //       y2: 26,
-  //       borderColor: '#000',
-  //       fillColor: '#FEB019',
-  //       opacity: 0.2,
-  //       label: {
-  //         borderColor: '#333',
-  //         style: {
-  //           fontSize: '10px',
-  //           color: '#333',
-  //           background: '#FEB019',
-  //         },
-  //         text: 'Y-axis range',
-  //       },
-  //     },
-  //   ],
-  // },
-  series: [
-    {
-      name: 'Desktops',
-      data: [10, 69, 35, 28, 39],
-    },
-  ],
-  options: {
-    chart: {
-      type: 'line',
-      stacked: false,
-      foreColor: '#a8a8a8',
-      fontFamily: 'poppinsM',
-      parentHeightOffset: 0,
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true,
-        zoomedArea: {
-          fill: {
-            color: '#65B065',
-            opacity: 0.15,
-          },
-          stroke: {
-            opacity: 0,
-          },
-        },
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    toolbar: {
-      autoSelected: 'zoom',
-    },
-    legend: {
-      position: 'bottom',
-    },
-    colors: ['#65B065'],
-    stroke: {
-      curve: 'smooth',
-    },
-    grid: {
-      row: {
-        colors: ['#ffffff'],
-      },
-    },
-    responsive: [
+function Graph({ toggle, dataType, title }) {
+  const test = {
+    // annotations: {
+    //   yaxis: [
+    //     {
+    //       y: 33,
+    //       y2: 26,
+    //       borderColor: '#000',
+    //       fillColor: '#FEB019',
+    //       opacity: 0.2,
+    //       label: {
+    //         borderColor: '#333',
+    //         style: {
+    //           fontSize: '10px',
+    //           color: '#333',
+    //           background: '#FEB019',
+    //         },
+    //         text: 'Y-axis range',
+    //       },
+    //     },
+    //   ],
+    // },
+    series: [
       {
-        breakpoint: 1174,
-        options: {
-          chart: {
-            width: '100%',
-            parentHeightOffset: 0,
-          },
-        },
-      },
-      {
-        breakpoint: 767,
-        options: {
-          chart: {
-            height: '140',
-            parentHeightOffset: 0,
-          },
-        },
+        name: 'Desktops',
+        data: dataType.y,
       },
     ],
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    },
-  },
-  yaxis: {
-    labels: {
-      minWidth: 8,
-      maxWidth: 15,
-      formatter: function (data) {
-        return (data / 100000000).toFixed(0);
+    options: {
+      chart: {
+        type: 'line',
+        stacked: false,
+        foreColor: '#a8a8a8',
+        fontFamily: 'poppinsM',
+        parentHeightOffset: 0,
+        zoom: {
+          type: 'x',
+          enabled: true,
+          autoScaleYaxis: true,
+          zoomedArea: {
+            fill: {
+              color: '#65B065',
+              opacity: 0.15,
+            },
+            stroke: {
+              opacity: 0,
+            },
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      toolbar: {
+        autoSelected: 'zoom',
+      },
+      legend: {
+        position: 'bottom',
+      },
+      colors: ['#65B065'],
+      stroke: {
+        curve: 'smooth',
+      },
+      grid: {
+        row: {
+          colors: ['#ffffff'],
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 1174,
+          options: {
+            chart: {
+              width: '100%',
+              parentHeightOffset: 0,
+            },
+          },
+        },
+        {
+          breakpoint: 767,
+          options: {
+            chart: {
+              height: '140',
+              parentHeightOffset: 0,
+            },
+          },
+        },
+      ],
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
       },
     },
-  },
-};
+    yaxis: {
+      labels: {
+        minWidth: 8,
+        maxWidth: 15,
+        formatter: function (data) {
+          return (data / 100000000).toFixed(0);
+        },
+      },
+    },
+  };
 
-function Graph({ toggle }) {
   const [open, setOpen] = useState(false);
   const getState = (open) => {
     setOpen(open);
@@ -116,7 +116,7 @@ function Graph({ toggle }) {
       {open && <Setting open={open} getState={getState} />}
       <Container>
         <TitleContainer>
-          <DataTitle>Temperature</DataTitle>
+          <DataTitle>{title}</DataTitle>
           <SettingButton type='button' onClick={() => setOpen(true)}>
             <SettingButtonImage src={setting} alt='setting button' />
           </SettingButton>
