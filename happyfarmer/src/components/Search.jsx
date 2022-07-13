@@ -50,12 +50,18 @@ function Search() {
   const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
 
   useEffect(() => {
-    getStationList().then((res) => {
-      const data = res.data;
+    //이거 HOME에서 해야 할듯 (값을 맵의 마커에서도 써야 하니까)
+    getStationList().then((data) => {
       const options = data.map((d) => ({
         value: d.id,
         label: d.location.zipCode,
       }));
+      // const markers = data.map((d) => ({
+      //   id: d.id,
+      //   name: d.name,
+      //   position: { lat: d.location.latitude, lng: d.location.longitude },
+      // }));
+      // setMarkers(markers);
       setOptions(options);
     });
   }, []);

@@ -14,7 +14,8 @@ export const getSensorList = async () => {
 
 export const getStationList = async () => {
   try {
-    return await http.get(`/api/v1/stations`);
+    const res = await http.get(`/api/v1/stations`);
+    return res.data;
   } catch (e) {
     isError(e);
   }
@@ -22,7 +23,8 @@ export const getStationList = async () => {
 
 export const getStation = async (id) => {
   try {
-    return await http.get(`/api/v1/stations/${id}`);
+    const res = await http.get(`/api/v1/stations/${id}`);
+    return res.data;
   } catch (e) {
     isError(e);
   }
