@@ -13,7 +13,6 @@ const customStyles = {
     ...provided,
     color: '#5f5f5f',
     padding: 17,
-
     background: state.isFocused
       ? '#f0f0f0'
       : state.isSelected
