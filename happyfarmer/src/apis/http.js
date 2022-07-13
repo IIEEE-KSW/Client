@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// const devUrl = `http://34.67.222.137`;
 const devUrl = `http://localhost:8080`;
 const pubUrl = ``;
 
