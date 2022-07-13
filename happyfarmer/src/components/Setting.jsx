@@ -1,75 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Slider from 'rc-slider';
-import './slider.css';
 import cancel from '../assets/cancel.png';
-
-const { Range, Handle, SliderTooltip } = Slider;
-
-const onHandle = (props) => {
-  const { value, index, ...restProps } = props;
-  console.log('handler: ' + value);
-  return (
-    <SliderTooltip
-      prefixCls='rc-slider-tooltip'
-      overlayInnerStyle={{
-        backgroundColor: 'transparent',
-        boxShadow: 'none',
-        color: '#09ACF8',
-      }}
-      overlay={`${value}`}
-      visible
-      placement='top'
-      key={index}
-    >
-      <Handle value={value} {...restProps} />
-    </SliderTooltip>
-  );
-};
+import Slider from './Slider';
 
 function Setting({ open, getState }) {
   const onClick = () => {
     getState(!open);
-  };
-
-  const [range, setRange] = useState({
-    lower: 20,
-    upper: 40,
-    value: [20, 40],
-  });
-
-  const marks = {
-    0: {
-      label: '0',
-      style: {
-        fontFamily: 'poppinsR',
-      },
-    },
-    100: {
-      label: '100',
-      style: {
-        fontFamily: 'poppinsR',
-      },
-    },
-  };
-
-  const onLowerChange = (e) => {
-    setRange({ lower: e.target.value });
-  };
-
-  const onUpperChange = (e) => {
-    setRange({ upper: e.target.value });
-  };
-
-  const onSliderChange = (value) => {
-    setRange({ value });
-    console.log('real value: ' + range.value);
-    console.log('change value: ' + value);
-  };
-
-  const handleApply = () => {
-    const { lower, upper } = range;
-    setRange({ value: [lower, upper] });
   };
 
   return (
@@ -85,15 +21,7 @@ function Setting({ open, getState }) {
             </Header>
             <Content>Range</Content>
             <SliderContainer>
-              <Slider
-                range
-                allowCross={false}
-                defaultValue={[range.lower, range.upper]}
-                value={range.value}
-                marks={marks}
-                onChange={onSliderChange}
-                handle={onHandle}
-              ></Slider>
+              <Slider />
             </SliderContainer>
             <ButtonContainer>
               <CancelButton onClick={onClick}>CANCEL</CancelButton>
@@ -129,7 +57,7 @@ const ModalContainer = styled.div`
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 60%;
+    width: 55%;
     border-radius: 8px;
   }
 `;
@@ -153,8 +81,7 @@ const Title = styled.div`
   font-size: 17px;
   margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 14px;
-    margin-left: 7%;
+    font-size: 13px;
   }
 `;
 
@@ -170,15 +97,14 @@ const XButton = styled.button`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.4vh;
-    margin-right: 7%;
+    height: 1.3vh;
   }
 `;
 
 const XButtonImage = styled.img`
   height: 1.8vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.4vh;
+    height: 1.3vh;
   }
 `;
 
@@ -187,9 +113,11 @@ const Content = styled.div`
   font-size: 13px;
   color: #717171;
   padding: 3vh;
+  margin-bottom: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 11px;
-    padding: 1.7vh 2vh;
+    font-size: 10px;
+    padding: 2.5vh;
+    margin-bottom: 10%;
   }
 `;
 
