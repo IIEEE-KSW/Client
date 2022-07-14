@@ -36,12 +36,7 @@ const marks = {
   },
 };
 
-const Sliders = () => {
-  const [range, setRange] = useState({
-    lower: 20,
-    upper: 40,
-  });
-
+const Sliders = ({ range, setRange, rangeVal }) => {
   const onSliderChange = (val) => {
     const value = { ...val, lower: val[0], upper: val[1] };
     setRange(value);
@@ -50,7 +45,7 @@ const Sliders = () => {
   return (
     <Range
       allowCross={false}
-      defaultValue={[range.lower, range.upper]}
+      defaultValue={[rangeVal[0], rangeVal[1]]}
       value={[range.lower, range.upper]}
       marks={marks}
       handle={handle}

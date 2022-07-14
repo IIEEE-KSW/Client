@@ -5,27 +5,21 @@ import Setting from './Setting';
 import setting from '../assets/settings.png';
 
 function Graph({ toggle, dataType, title }) {
+  const rangeData = window.localStorage.getItem(dataType.name);
+  let rangeVal;
+
+  if (rangeData) {
+    rangeVal = JSON.parse(rangeData);
+  } else {
+    rangeVal = [50, 50];
+  }
+
+  const [range, setRange] = useState({
+    lower: rangeVal[0],
+    upper: rangeVal[1],
+  });
+
   const test = {
-    // annotations: {
-    //   yaxis: [
-    //     {
-    //       y: 33,
-    //       y2: 26,
-    //       borderColor: '#000',
-    //       fillColor: '#FEB019',
-    //       opacity: 0.2,
-    //       label: {
-    //         borderColor: '#333',
-    //         style: {
-    //           fontSize: '10px',
-    //           color: '#333',
-    //           background: '#FEB019',
-    //         },
-    //         text: 'Y-axis range',
-    //       },
-    //     },
-    //   ],
-    // },
     series: [
       {
         name: 'Desktops',
@@ -33,6 +27,16 @@ function Graph({ toggle, dataType, title }) {
       },
     ],
     options: {
+      annotations: {
+        yaxis: [
+          {
+            y: rangeVal[0],
+            y2: rangeVal[1],
+            fillColor: '#6bcbff',
+            opacity: 0.15,
+          },
+        ],
+      },
       chart: {
         type: 'line',
         stacked: false,
@@ -69,7 +73,7 @@ function Graph({ toggle, dataType, title }) {
       },
       grid: {
         row: {
-          colors: ['#ffffff'],
+          colors: ['transparent'],
         },
       },
       responsive: [
@@ -100,9 +104,9 @@ function Graph({ toggle, dataType, title }) {
       labels: {
         minWidth: 8,
         maxWidth: 15,
-        formatter: function (data) {
-          return (data / 100000000).toFixed(0);
-        },
+      },
+      formatter: function (data) {
+        return (data / 100000000).toFixed(0);
       },
     },
   };
@@ -110,10 +114,21 @@ function Graph({ toggle, dataType, title }) {
   const [open, setOpen] = useState(false);
   const getState = (open) => {
     setOpen(open);
+    console.log(rangeVal[0], rangeVal[1]);
   };
+
   return (
     <>
-      {open && <Setting open={open} getState={getState} />}
+      {open && (
+        <Setting
+          open={open}
+          getState={getState}
+          dataType={dataType}
+          range={range}
+          setRange={setRange}
+          rangeVal={rangeVal}
+        />
+      )}
       <Container>
         <TitleContainer>
           <DataTitle>{title}</DataTitle>

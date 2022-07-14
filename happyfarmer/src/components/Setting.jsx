@@ -3,9 +3,15 @@ import styled from 'styled-components';
 import cancel from '../assets/cancel.png';
 import Slider from './Slider';
 
-function Setting({ open, getState }) {
+function Setting({ open, getState, dataType, range, setRange, rangeVal }) {
   const onClick = () => {
     getState(!open);
+  };
+  const onOkClick = () => {
+    getState(!open);
+    const rangeList = [range.lower, range.upper];
+    const rangeListStr = JSON.stringify(rangeList);
+    window.localStorage.setItem(dataType.name, rangeListStr);
   };
 
   return (
@@ -21,11 +27,11 @@ function Setting({ open, getState }) {
             </Header>
             <Content>Range</Content>
             <SliderContainer>
-              <Slider />
+              <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
             </SliderContainer>
             <ButtonContainer>
               <CancelButton onClick={onClick}>CANCEL</CancelButton>
-              <OkButton onClick={onClick}>OK</OkButton>
+              <OkButton onClick={onOkClick}>OK</OkButton>
             </ButtonContainer>
           </ModalContainer>
         </Container>
