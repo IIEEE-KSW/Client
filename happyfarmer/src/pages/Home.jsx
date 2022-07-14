@@ -6,7 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-import Map from '../components/map';
+// import Map from '../components/map';
+import Map from '../components/map2';
 
 import logo from '../assets/logo.png';
 import select from '../assets/select.png';
@@ -42,49 +43,50 @@ function Home() {
   };
 
   return (
-    <Body>
-      <Header>
-        <Logo src={logo} alt='logo'></Logo>
-        <Search />
-      </Header>
-      <GraphsSection>
-        <TitleContainer>
-          <Title>Graphs</Title>
-          <SelectButton type='button' onClick={() => setToggle(!toggle)}>
-            <SelectButtonImage
-              src={toggle ? select : selectOff}
-              alt='select button'
-            />
-          </SelectButton>
-        </TitleContainer>
-        {toggle ? (
-          <>
-            <GraphContainer>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-            </GraphContainer>
-            <GraphContainer>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-            </GraphContainer>
-          </>
-        ) : (
-          <SliderContainer>
-            <StyledSlider {...sliderSetting}>
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-              <Graph toggle={toggle} />
-            </StyledSlider>
-          </SliderContainer>
-        )}
-      </GraphsSection>
-      <LocationSection>
-        <Title>Location</Title>
-        <Map />
-      </LocationSection>
-      <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
-    </Body>
+    <Map />
+    // <Body>
+    //   <Header>
+    //     <Logo src={logo} alt='logo'></Logo>
+    //     <Search />
+    //   </Header>
+    //   <GraphsSection>
+    //     <TitleContainer>
+    //       <Title>Graphs</Title>
+    //       <SelectButton type='button' onClick={() => setToggle(!toggle)}>
+    //         <SelectButtonImage
+    //           src={toggle ? select : selectOff}
+    //           alt='select button'
+    //         />
+    //       </SelectButton>
+    //     </TitleContainer>
+    //     {toggle ? (
+    //       <>
+    //         <GraphContainer>
+    //           <Graph toggle={toggle} />
+    //           <Graph toggle={toggle} />
+    //         </GraphContainer>
+    //         <GraphContainer>
+    //           <Graph toggle={toggle} />
+    //           <Graph toggle={toggle} />
+    //         </GraphContainer>
+    //       </>
+    //     ) : (
+    //       <SliderContainer>
+    //         <StyledSlider {...sliderSetting}>
+    //           <Graph toggle={toggle} />
+    //           <Graph toggle={toggle} />
+    //           <Graph toggle={toggle} />
+    //           <Graph toggle={toggle} />
+    //         </StyledSlider>
+    //       </SliderContainer>
+    //     )}
+    //   </GraphsSection>
+    //   <LocationSection>
+    //     <Title>Location</Title>
+    //     <Map />
+    //   </LocationSection>
+    //   <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
+    // </Body>
   );
 }
 
