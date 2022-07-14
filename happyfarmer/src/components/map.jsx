@@ -13,6 +13,7 @@ import anemometer from '../assets/anemometer.png';
 import uv from '../assets/uv.png';
 
 import { useSelector } from 'react-redux';
+import { getStation } from '../apis/api';
 
 // test data
 const containerStyle = {
@@ -60,6 +61,10 @@ const markers = [
 ];
 
 const Map = () => {
+  //update information by user select
+  const stationId = useSelector(({ station }) => station.id);
+  // const [markers, setMarkers] = useState([]);
+
   // Get current location
   const centerRef = useRef({ lat: null, lng: null });
   const [isGeoLoaded, setIsGeoLoaded] = useState(false);
@@ -92,9 +97,20 @@ const Map = () => {
     getGeoLoc();
   }, []);
 
-  //update information by user select (REDUX TEST)
-  const stationId = useSelector(({ station }) => station.id);
-  console.log(stationId);
+  useEffect(() => {
+    //위치 업데이트
+    if (stationId) {
+      getStation(stationId).then((data) => {
+        const coordsObj = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+        centerRef.current = coordsObj;
+
+        console.log(data);
+      });
+    }
+  }, [stationId]);
 
   // Googl Map API
   const [map, setMap] = useState(null);
