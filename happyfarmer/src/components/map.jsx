@@ -107,7 +107,7 @@ const Map = () => {
         };
         centerRef.current = coordsObj;
 
-        console.log(data);
+        // console.log(data);
       });
     }
   }, [stationId]);

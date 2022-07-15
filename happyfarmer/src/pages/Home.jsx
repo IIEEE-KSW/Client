@@ -12,28 +12,29 @@ import logo from '../assets/logo.png';
 import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 
-import { getSensorList } from '../apis/api';
+import { useSelector } from 'react-redux';
+import { getStationSensor } from '../apis/api';
 
 import { data } from '../components/graphdata';
 
 function Home() {
+  const stationId = useSelector(({ station }) => station.id);
   const [toggle, setToggle] = useState(true);
+  const [temperature, setTemperature] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+  const [windSpeed, setWindSpeed] = useState([]);
+  const [sunlight, setSunlight] = useState([]);
 
   useEffect(() => {
-    // API를 각 위치에서 호출하는 경우
-    // const getStationList = async () => {
-    //   try {
-    //     const res = await http.get(`/todos/1`);
-    //     setTest(res.data.title);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // };
-    // API들을 모듈화해서 호출하는 경우
-    getSensorList().then((data) => {
-      console.log(data);
-    });
-  }, []);
+    if (stationId) {
+      getStationSensor(stationId).then((data) => {
+        const temp = data.map((d) => [...temperature, d.air.temperature]);
+        const humi = data.map((d) => [...humidity, d.air.humidity]);
+        const wind = data.map((d) => [...windSpeed, d.windSpeed]);
+        const sun = data.map((d) => [...sunlight, d.uv]);
+      });
+    }
+  }, [stationId]);
 
   const sliderSetting = {
     dots: true,
