@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -6,14 +6,14 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-import Map from '../components/map';
+import MapComponent from '../components/MapComponent';
 
 import logo from '../assets/logo.png';
 import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 
 import { useSelector } from 'react-redux';
-import { getStationSensor } from '../apis/api';
+import { getStationSensor, getStation } from '../apis/api';
 
 import { data } from '../components/graphdata';
 
@@ -24,6 +24,9 @@ function Home() {
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
+
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
 
   useEffect(() => {
     if (stationId) {
@@ -116,7 +119,7 @@ function Home() {
       </GraphsSection>
       <LocationSection>
         <Title>Location</Title>
-        <Map />
+        <MapComponent lng={lng} lat={lat} zoom={15} />
       </LocationSection>
       <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
