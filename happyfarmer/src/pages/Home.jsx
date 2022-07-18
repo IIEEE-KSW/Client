@@ -25,19 +25,48 @@ function Home() {
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
 
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
+  const centerRef = useRef({ lng: null, lat: null });
+  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
+
+  const handleGeoSuccess = (pos) => {
+    const lng = pos.coords.longitude;
+    const lat = pos.coords.latitude;
+    const coords = {
+      lng,
+      lat,
+    };
+    centerRef.current = coords;
+    setIsGeoLoaded(true);
+  };
+
+  const handleGeoError = (err) => {
+    console.log(err);
+  };
 
   useEffect(() => {
-    if (stationId) {
-      getStationSensor(stationId).then((data) => {
-        const temp = data.map((d) => [...temperature, d.air.temperature]);
-        const humi = data.map((d) => [...humidity, d.air.humidity]);
-        const wind = data.map((d) => [...windSpeed, d.windSpeed]);
-        const sun = data.map((d) => [...sunlight, d.uv]);
-      });
-    }
-  }, [stationId]);
+    const getGeoLoc = () => {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          handleGeoSuccess,
+          handleGeoError
+        );
+      }
+    };
+    getGeoLoc();
+  }, []);
+
+  // useEffect(() => {
+  //   if (stationId) {
+  //     getStationSensor(stationId).then((data) => {
+  //       const temp = data.map((d) => [...temperature, d.air.temperature]);
+  //       const humi = data.map((d) => [...humidity, d.air.humidity]);
+  //       const wind = data.map((d) => [...windSpeed, d.windSpeed]);
+  //       const sun = data.map((d) => [...sunlight, d.uv]);
+  //     });
+  //   }
+  // }, [stationId]);
 
   const sliderSetting = {
     dots: true,
@@ -119,7 +148,13 @@ function Home() {
       </GraphsSection>
       <LocationSection>
         <Title>Location</Title>
-        <MapComponent lng={lng} lat={lat} zoom={15} />
+        {isGeoLoaded && (
+          <MapComponent
+            lng={centerRef.current.lng}
+            lat={centerRef.current.lat}
+            zoom={10}
+          />
+        )}
       </LocationSection>
       <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
