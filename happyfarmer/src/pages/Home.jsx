@@ -17,6 +17,34 @@ import { getStationSensor, getStation } from '../apis/api';
 
 import { data } from '../components/graphdata';
 
+const test = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-77.032, 38.913],
+      },
+      properties: {
+        title: 'Mapbox',
+        description: 'Washington, D.C.',
+      },
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-122.414, 37.776],
+      },
+      properties: {
+        title: 'Mapbox',
+        description: 'San Francisco, California',
+      },
+    },
+  ],
+};
+
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
   const [toggle, setToggle] = useState(true);
@@ -153,6 +181,7 @@ function Home() {
             lng={centerRef.current.lng}
             lat={centerRef.current.lat}
             zoom={10}
+            markers={test}
           />
         )}
       </LocationSection>
