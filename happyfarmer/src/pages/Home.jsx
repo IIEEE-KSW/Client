@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -13,48 +13,26 @@ import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 
 import { useSelector } from 'react-redux';
-import { getStationSensor, getStation } from '../apis/api';
+import { getStationSensor, getStation, getStationList } from '../apis/api';
 
 import { data } from '../components/graphdata';
-
-const test = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-77.032, 38.913],
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'Washington, D.C.',
-      },
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-122.414, 37.776],
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'San Francisco, California',
-      },
-    },
-  ],
-};
+import Map from 'react-map-gl';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
+
+  const centerRef = useRef({ lng: null, lat: null });
+
+  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
+
+  const [options, setOptions] = useState([]);
+  const [markers, setMarkers] = useState([]);
+
   const [toggle, setToggle] = useState(true);
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
-
-  const centerRef = useRef({ lng: null, lat: null });
-  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -71,7 +49,21 @@ function Home() {
     console.log(err);
   };
 
+  //위치 업데이트
   useEffect(() => {
+    if (stationId) {
+      getStation(stationId).then((data) => {
+        const coordsObj = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+        centerRef.current = coordsObj;
+      });
+    }
+  }, [stationId]);
+
+  useEffect(() => {
+    //현재 위치 업데이트
     const getGeoLoc = () => {
       if (!navigator.geolocation) {
         alert('Geolocation is not supported by your browser');
@@ -83,15 +75,32 @@ function Home() {
       }
     };
     getGeoLoc();
+
+    //station 마커 표시
+    getStationList().then((data) => {
+      const options = data.map((d) => ({
+        value: d.id,
+        label: d.location.zipCode,
+      }));
+      setOptions(options);
+
+      const markers = data.map((d) => ({
+        id: d.id,
+        name: d.name,
+        position: { lat: d.location.latitude, lng: d.location.longitude },
+      }));
+      setMarkers(markers);
+    });
   }, []);
 
   // useEffect(() => {
   //   if (stationId) {
   //     getStationSensor(stationId).then((data) => {
-  //       const temp = data.map((d) => [...temperature, d.air.temperature]);
-  //       const humi = data.map((d) => [...humidity, d.air.humidity]);
-  //       const wind = data.map((d) => [...windSpeed, d.windSpeed]);
-  //       const sun = data.map((d) => [...sunlight, d.uv]);
+  //       console.log(data);
+  //       // const temp = data.map((d) => [...temperature, d.air.temperature]);
+  //       // const humi = data.map((d) => [...humidity, d.air.humidity]);
+  //       // const wind = data.map((d) => [...windSpeed, d.windSpeed]);
+  //       // const sun = data.map((d) => [...sunlight, d.uv]);
   //     });
   //   }
   // }, [stationId]);
@@ -108,7 +117,7 @@ function Home() {
     <Body>
       <Header>
         <Logo src={logo} alt='logo'></Logo>
-        <Search />
+        <Search options={options} />
       </Header>
       <GraphsSection>
         <TitleContainer>
@@ -180,8 +189,8 @@ function Home() {
           <MapComponent
             lng={centerRef.current.lng}
             lat={centerRef.current.lat}
-            zoom={10}
-            markers={test}
+            zoom={12}
+            markers={markers}
           />
         )}
       </LocationSection>

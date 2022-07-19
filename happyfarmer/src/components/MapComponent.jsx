@@ -3,6 +3,7 @@ import Map from 'react-map-gl';
 import Markers from './Markers';
 
 export default function MapComponent({ lng, lat, zoom, markers }) {
+  console.log(lng, lat);
   return (
     <Map
       initialViewState={{
@@ -14,12 +15,15 @@ export default function MapComponent({ lng, lat, zoom, markers }) {
       mapStyle='mapbox://styles/mapbox/streets-v9'
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_KEY}
     >
-      {markers.features.map((m) => (
-        <Markers
-          lng={m.geometry.coordinates[0]}
-          lat={m.geometry.coordinates[1]}
-        />
-      ))}
+      {markers &&
+        markers.map((m) => (
+          <Markers
+            key={m.id}
+            id={m.id}
+            lng={m.position.lng}
+            lat={m.position.lat}
+          />
+        ))}
     </Map>
   );
 }
