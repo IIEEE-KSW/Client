@@ -183,6 +183,7 @@ function Home() {
         <Title>Location</Title>
         {isGeoLoaded && (
           <MapComponent
+            key={stationId}
             lng={centerRef.current.lng}
             lat={centerRef.current.lat}
             zoom={12}

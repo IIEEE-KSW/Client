@@ -3,6 +3,8 @@ import { Marker, Popup } from 'react-map-gl';
 import Pin from './Pin';
 // import pin from '../assets/pin.png';
 
+import moment from 'moment';
+
 import './map.css';
 import styled from 'styled-components';
 import temperatureImg from '../assets/temperature.png';
@@ -18,6 +20,7 @@ const Markers = ({ id, lng, lat }) => {
   const [humidity, setHumidity] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
   const [sunlight, setSunlight] = useState(0);
+  const [date, setDate] = useState(null);
 
   const handleClickMark = (e) => {
     e.originalEvent.stopPropagation(); // If we let the click event propagates to the map, it will immediately close the popup
@@ -27,11 +30,14 @@ const Markers = ({ id, lng, lat }) => {
   //sensors value
   useEffect(() => {
     getStationSensorOne(id).then((data) => {
-      // console.log(data);
+      console.log(data);
       setTemperature(data.air.temperature);
       setHumidity(data.air.humidity);
       setWindSpeed(data.windSpeed);
       setSunlight(data.uv);
+
+      const ago = moment(data.dateTime).fromNow();
+      setDate(ago);
     });
   }, [id]);
 
@@ -57,7 +63,8 @@ const Markers = ({ id, lng, lat }) => {
           <Container>
             <Header>
               <Title>Farm Data</Title>
-              <Time>2 min ago</Time>
+              {/* <Time>2 min ago</Time> */}
+              <Time>{date}</Time>
             </Header>
             <Body>
               <DataContainer>
