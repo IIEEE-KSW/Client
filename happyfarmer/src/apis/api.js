@@ -22,6 +22,15 @@ export const getSensor = async (id) => {
   }
 };
 
+export const getStationSensorOne = async (id) => {
+  try {
+    const res = await http.get(`/api/v1/sensors/stations/${id}/1`);
+    return res.data;
+  } catch (e) {
+    isError(e);
+  }
+};
+
 export const getStationSensor = async (id) => {
   try {
     const res = await http.get(`/api/v1/sensors/stations/${id}`);

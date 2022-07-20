@@ -16,7 +16,6 @@ import { useSelector } from 'react-redux';
 import { getStationSensor, getStation, getStationList } from '../apis/api';
 
 import { data } from '../components/graphdata';
-import Map from 'react-map-gl';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
@@ -43,6 +42,7 @@ function Home() {
     };
     centerRef.current = coords;
     setIsGeoLoaded(true);
+    //현재 station id저장
   };
 
   const handleGeoError = (err) => {
@@ -97,10 +97,6 @@ function Home() {
   //   if (stationId) {
   //     getStationSensor(stationId).then((data) => {
   //       console.log(data);
-  //       // const temp = data.map((d) => [...temperature, d.air.temperature]);
-  //       // const humi = data.map((d) => [...humidity, d.air.humidity]);
-  //       // const wind = data.map((d) => [...windSpeed, d.windSpeed]);
-  //       // const sun = data.map((d) => [...sunlight, d.uv]);
   //     });
   //   }
   // }, [stationId]);

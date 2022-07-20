@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import Pin from './Pin';
 // import pin from '../assets/pin.png';
 
 import './map.css';
 import styled from 'styled-components';
-import temperature from '../assets/temperature.png';
-import humidity from '../assets/humidity.png';
-import anemometer from '../assets/anemometer.png';
-import uv from '../assets/uv.png';
+import temperatureImg from '../assets/temperature.png';
+import humidityImg from '../assets/humidity.png';
+import anemometerImg from '../assets/anemometer.png';
+import uvImg from '../assets/uv.png';
+import { getStationSensorOne } from '../apis/api';
 
 const Markers = ({ id, lng, lat }) => {
   const [showPopup, setShowPopup] = useState(false);
+
+  const [temperature, setTemperature] = useState(0);
+  const [humidity, setHumidity] = useState(0);
+  const [windSpeed, setWindSpeed] = useState(0);
+  const [sunlight, setSunlight] = useState(0);
 
   const handleClickMark = (e) => {
     e.originalEvent.stopPropagation(); // If we let the click event propagates to the map, it will immediately close the popup
@@ -19,6 +25,15 @@ const Markers = ({ id, lng, lat }) => {
   };
 
   //sensors value
+  useEffect(() => {
+    getStationSensorOne(id).then((data) => {
+      // console.log(data);
+      setTemperature(data.air.temperature);
+      setHumidity(data.air.humidity);
+      setWindSpeed(data.windSpeed);
+      setSunlight(data.uv);
+    });
+  }, [id]);
 
   return (
     <>
@@ -46,20 +61,20 @@ const Markers = ({ id, lng, lat }) => {
             </Header>
             <Body>
               <DataContainer>
-                <Icon src={temperature} alt='temperature icon'></Icon>
-                <Value>67 Fº</Value>
+                <Icon src={temperatureImg} alt='temperature icon'></Icon>
+                <Value>{temperature} Fº</Value>
               </DataContainer>
               <DataContainer>
-                <Icon src={humidity} alt='humidity icon'></Icon>
-                <Value>83 %</Value>
+                <Icon src={humidityImg} alt='humidity icon'></Icon>
+                <Value>{humidity} %</Value>
               </DataContainer>
               <DataContainer>
-                <Icon src={anemometer} alt='anemometer icon'></Icon>
-                <Value>20 ㎧</Value>
+                <Icon src={anemometerImg} alt='anemometer icon'></Icon>
+                <Value>{windSpeed} ㎧</Value>
               </DataContainer>
               <DataContainer>
-                <Icon src={uv} alt='uv icon'></Icon>
-                <Value>67 Fº</Value>
+                <Icon src={uvImg} alt='uv icon'></Icon>
+                <Value>{sunlight} Fº</Value>
               </DataContainer>
             </Body>
           </Container>
