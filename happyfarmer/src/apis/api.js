@@ -6,7 +6,8 @@ const isError = (e) => {
 
 export const getSensorList = async () => {
   try {
-    return await http.get(`/api/v1/sensors`);
+    const res = await http.get(`/api/v1/sensors`);
+    return res.data;
   } catch (e) {
     isError(e);
   }
@@ -14,7 +15,17 @@ export const getSensorList = async () => {
 
 export const getSensor = async (id) => {
   try {
-    return await http.get(`/api/v1/sensors/${id}`);
+    const res = await http.get(`/api/v1/sensors/${id}`);
+    return res.data;
+  } catch (e) {
+    isError(e);
+  }
+};
+
+export const getStationSensorOne = async (id) => {
+  try {
+    const res = await http.get(`/api/v1/sensors/stations/${id}/1`);
+    return res.data;
   } catch (e) {
     isError(e);
   }
@@ -22,7 +33,8 @@ export const getSensor = async (id) => {
 
 export const getStationSensor = async (id) => {
   try {
-    return await http.get(`/api/v1/sensors/stations/${id}`);
+    const res = await http.get(`/api/v1/sensors/stations/${id}`);
+    return res.data;
   } catch (e) {
     isError(e);
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -6,34 +6,103 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-import Map from '../components/map';
+import MapComponent from '../components/MapComponent';
 
 import logo from '../assets/logo.png';
 import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 
-import { getSensorList } from '../apis/api';
+import { useSelector } from 'react-redux';
+import { getStationSensor, getStation, getStationList } from '../apis/api';
 
 import { data } from '../components/graphdata';
 
 function Home() {
+  const stationId = useSelector(({ station }) => station.id);
+
+  const centerRef = useRef({ lng: null, lat: null });
+
+  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
+
+  const [options, setOptions] = useState([]);
+  const [markers, setMarkers] = useState([]);
+
   const [toggle, setToggle] = useState(true);
+  const [temperature, setTemperature] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+  const [windSpeed, setWindSpeed] = useState([]);
+  const [sunlight, setSunlight] = useState([]);
+
+  // const [lng, setLng] = useState(null);
+  // const [lat, setLat] = useState(null);
+
+  const handleGeoSuccess = (pos) => {
+    const lng = pos.coords.longitude;
+    const lat = pos.coords.latitude;
+    const coordsObj = {
+      lng,
+      lat,
+    };
+    centerRef.current = coordsObj;
+    setIsGeoLoaded(true);
+    //현재 station id저장
+  };
+
+  const handleGeoError = (err) => {
+    console.log(err);
+  };
+
+  //위치 업데이트
+  useEffect(() => {
+    if (stationId) {
+      getStation(stationId).then((data) => {
+        const coordsObj = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+        centerRef.current = coordsObj;
+      });
+    }
+  }, [stationId]);
 
   useEffect(() => {
-    // API를 각 위치에서 호출하는 경우
-    // const getStationList = async () => {
-    //   try {
-    //     const res = await http.get(`/todos/1`);
-    //     setTest(res.data.title);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // };
-    // API들을 모듈화해서 호출하는 경우
-    getSensorList().then((data) => {
-      console.log(data);
+    //현재 위치 업데이트
+    const getGeoLoc = () => {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          handleGeoSuccess,
+          handleGeoError
+        );
+      }
+    };
+    getGeoLoc();
+
+    //station 마커 표시
+    getStationList().then((data) => {
+      const options = data.map((d) => ({
+        value: d.id,
+        label: d.location.zipCode,
+      }));
+      setOptions(options);
+
+      const markers = data.map((d) => ({
+        id: d.id,
+        name: d.name,
+        position: { lat: d.location.latitude, lng: d.location.longitude },
+      }));
+      setMarkers(markers);
     });
   }, []);
+
+  // useEffect(() => {
+  //   if (stationId) {
+  //     getStationSensor(stationId).then((data) => {
+  //       console.log(data);
+  //     });
+  //   }
+  // }, [stationId]);
 
   const sliderSetting = {
     dots: true,
@@ -47,7 +116,7 @@ function Home() {
     <Body>
       <Header>
         <Logo src={logo} alt='logo'></Logo>
-        <Search />
+        <Search options={options} />
       </Header>
       <GraphsSection>
         <TitleContainer>
@@ -114,8 +183,16 @@ function Home() {
         )}
       </GraphsSection>
       <LocationSection>
-        <Title>Location</Title>
-        <Map />
+        <Title>Location {stationId}</Title>
+        {isGeoLoaded && (
+          <MapComponent
+            key={stationId}
+            lng={centerRef.current.lng}
+            lat={centerRef.current.lat}
+            zoom={12}
+            markers={markers}
+          />
+        )}
       </LocationSection>
       <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>

@@ -6,3 +6,25 @@ const data = {
 };
 
 export { data };
+
+// export const data =
+//   ({
+//     id: 20,
+//     air: {
+//       temperature: 12.0,
+//       humidity: 4.0,
+//     },
+//     windSpeed: 33.0,
+//     uv: 22.0,
+//     dateTime: '2022-06-22T12:15:00',
+//   },
+//   {
+//     id: 21,
+//     air: {
+//       temperature: 12.0,
+//       humidity: 4.0,
+//     },
+//     windSpeed: 33.0,
+//     uv: 22.0,
+//     dateTime: '2022-06-22T12:30:00',
+//   });

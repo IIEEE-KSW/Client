@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-
-import { getStationList } from '../apis/api';
 
 import { useDispatch } from 'react-redux';
 import { setId } from '../modules/station';
@@ -42,28 +40,9 @@ const customStyles = {
   },
 };
 
-function Search() {
-  const [options, setOptions] = useState([]);
-
+function Search({ options }) {
   const dispatch = useDispatch();
   const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
-
-  useEffect(() => {
-    //이거 HOME에서 해야 할듯 (값을 맵의 마커에서도 써야 하니까)
-    getStationList().then((data) => {
-      const options = data.map((d) => ({
-        value: d.id,
-        label: d.location.zipCode,
-      }));
-      // const markers = data.map((d) => ({
-      //   id: d.id,
-      //   name: d.name,
-      //   position: { lat: d.location.latitude, lng: d.location.longitude },
-      // }));
-      // setMarkers(markers);
-      setOptions(options);
-    });
-  }, []);
 
   const handleSelectItem = (e) => {
     const id = e.value;
