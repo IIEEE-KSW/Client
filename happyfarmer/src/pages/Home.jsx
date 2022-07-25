@@ -33,9 +33,6 @@ function Home() {
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
 
-  // const [lng, setLng] = useState(null);
-  // const [lat, setLat] = useState(null);
-
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
     const lat = pos.coords.latitude;
@@ -55,12 +52,14 @@ function Home() {
   //위치 업데이트
   useEffect(() => {
     if (stationId) {
+      setIsGeoLoaded(false);
       getStation(stationId).then((data) => {
         const coordsObj = {
           lat: data.location.latitude,
           lng: data.location.longitude,
         };
         centerRef.current = coordsObj;
+        setIsGeoLoaded(true);
       });
     }
   }, [stationId]);
@@ -183,10 +182,9 @@ function Home() {
         )}
       </GraphsSection>
       <LocationSection>
-        <Title>Location {stationId}</Title>
+        <Title>Location</Title>
         {isGeoLoaded && (
           <MapComponent
-            key={stationId}
             lng={centerRef.current.lng}
             lat={centerRef.current.lat}
             zoom={12}
