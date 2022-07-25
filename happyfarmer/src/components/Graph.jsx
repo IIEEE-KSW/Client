@@ -4,14 +4,14 @@ import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
 
-function Graph({ toggle, dataType, title }) {
+function Graph({ toggle, dataType, title, data }) {
   const rangeData = window.localStorage.getItem(dataType.name);
   let rangeVal;
 
   if (rangeData) {
     rangeVal = JSON.parse(rangeData);
   } else {
-    rangeVal = [50, 50];
+    rangeVal = [0, 0];
   }
 
   const [range, setRange] = useState({
@@ -23,7 +23,7 @@ function Graph({ toggle, dataType, title }) {
     series: [
       {
         name: 'Desktops',
-        data: dataType.y,
+        data: data,
       },
     ],
     options: {
@@ -97,7 +97,7 @@ function Graph({ toggle, dataType, title }) {
         },
       ],
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        type: 'datetime',
       },
     },
     yaxis: {
