@@ -95,13 +95,16 @@ function Home() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (stationId) {
-  //     getStationSensor(stationId).then((data) => {
-  //       console.log(data);
-  //     });
-  //   }
-  // }, [stationId]);
+  useEffect(() => {
+    // if (stationId) {
+    //test
+    const start = '2022-06-23T20:30:00';
+    const end = '2022-06-25T17:45:00';
+    getStationSensor(3, start, end).then((data) => {
+      console.log(data);
+    });
+    // }
+  }, [stationId]);
 
   const sliderSetting = {
     dots: true,
