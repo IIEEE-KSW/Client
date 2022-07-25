@@ -33,14 +33,17 @@ function Home() {
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
 
+  // const [lng, setLng] = useState(null);
+  // const [lat, setLat] = useState(null);
+
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
     const lat = pos.coords.latitude;
-    const coords = {
+    const coordsObj = {
       lng,
       lat,
     };
-    centerRef.current = coords;
+    centerRef.current = coordsObj;
     setIsGeoLoaded(true);
     //현재 station id저장
   };
@@ -180,7 +183,7 @@ function Home() {
         )}
       </GraphsSection>
       <LocationSection>
-        <Title>Location</Title>
+        <Title>Location {stationId}</Title>
         {isGeoLoaded && (
           <MapComponent
             key={stationId}

@@ -2,8 +2,7 @@ import React from 'react';
 import Map from 'react-map-gl';
 import Markers from './Markers';
 
-export default function MapComponent({ lng, lat, zoom, markers }) {
-  console.log(lng, lat);
+const MapComponent = ({ lng, lat, zoom, markers }) => {
   return (
     <Map
       initialViewState={{
@@ -26,4 +25,6 @@ export default function MapComponent({ lng, lat, zoom, markers }) {
         ))}
     </Map>
   );
-}
+};
+
+export default MapComponent;

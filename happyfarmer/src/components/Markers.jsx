@@ -30,7 +30,7 @@ const Markers = ({ id, lng, lat }) => {
   //sensors value
   useEffect(() => {
     getStationSensorOne(id).then((data) => {
-      console.log(data);
+      // console.log(data);
       setTemperature(data.air.temperature);
       setHumidity(data.air.humidity);
       setWindSpeed(data.windSpeed);
@@ -63,7 +63,6 @@ const Markers = ({ id, lng, lat }) => {
           <Container>
             <Header>
               <Title>Farm Data</Title>
-              {/* <Time>2 min ago</Time> */}
               <Time>{date}</Time>
             </Header>
             <Body>
