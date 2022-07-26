@@ -31,10 +31,10 @@ const Markers = ({ id, lng, lat }) => {
   useEffect(() => {
     getStationSensorOne(id).then((data) => {
       // console.log(data);
-      setTemperature(data.air.temperature);
-      setHumidity(data.air.humidity);
-      setWindSpeed(data.windSpeed);
-      setSunlight(data.uv);
+      setTemperature(data.air.temperature.toFixed(0));
+      setHumidity(data.air.humidity.toFixed(0));
+      setWindSpeed(data.windSpeed.toFixed(0));
+      setSunlight(data.uv.toFixed(0));
 
       const ago = moment(data.dateTime).fromNow();
       setDate(ago);
@@ -66,22 +66,26 @@ const Markers = ({ id, lng, lat }) => {
               <Time>{date}</Time>
             </Header>
             <Body>
-              <DataContainer>
-                <Icon src={temperatureImg} alt='temperature icon'></Icon>
-                <Value>{temperature} Fº</Value>
-              </DataContainer>
-              <DataContainer>
-                <Icon src={humidityImg} alt='humidity icon'></Icon>
-                <Value>{humidity} %</Value>
-              </DataContainer>
-              <DataContainer>
-                <Icon src={anemometerImg} alt='anemometer icon'></Icon>
-                <Value>{windSpeed} ㎧</Value>
-              </DataContainer>
-              <DataContainer>
-                <Icon src={uvImg} alt='uv icon'></Icon>
-                <Value>{sunlight} Fº</Value>
-              </DataContainer>
+              <DataWrapper>
+                <DataContainer>
+                  <Icon src={temperatureImg} alt='temperature icon'></Icon>
+                  <Value>{temperature} Fº</Value>
+                </DataContainer>
+                <DataContainer>
+                  <Icon src={humidityImg} alt='humidity icon'></Icon>
+                  <Value>{humidity} %</Value>
+                </DataContainer>
+              </DataWrapper>
+              <DataWrapper>
+                <DataContainer>
+                  <Icon src={anemometerImg} alt='anemometer icon'></Icon>
+                  <Value>{windSpeed} ㎧</Value>
+                </DataContainer>
+                <DataContainer>
+                  <Icon src={uvImg} alt='uv icon'></Icon>
+                  <Value>{sunlight} Fº</Value>
+                </DataContainer>
+              </DataWrapper>
             </Body>
           </Container>
         </Popup>
@@ -93,14 +97,11 @@ const Markers = ({ id, lng, lat }) => {
 export default Markers;
 
 const Container = styled.div`
-  width: 170px;
-  height: 100px;
-  padding: 0;
-  padding: 2vh;
+  width: fit-content;
+  height: fit-content;
+  padding: 2vh 2vh 1.3vh 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 120px;
-    height: 80px;
-    padding: 1vh;
+    padding: 1.5vh 1.5vh 1vh 1.5vh;
   }
 `;
 
@@ -112,15 +113,15 @@ const Header = styled.div`
   align-items: center;
   color: #65b065;
   border-bottom: 1px solid #65b065;
-  @media screen and (max-width: 767px) and (orientation: portrait) {
-  }
+  padding-bottom: 0.5vh;
+  margin-bottom: 1vh;
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 14px;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 12px;
+    font-size: 13px;
   }
 `;
 
@@ -128,29 +129,32 @@ const Time = styled.div`
   font-family: 'poppinsL';
   font-size: 6px;
   color: #d1d1d1;
-  margin-right: 2vh;
+  margin: 0 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 3px;
-    margin-right: 0;
+    margin: 0 1.4vh;
   }
 `;
 
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: space-around;
-  height: 80%;
+`;
+
+const DataWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 const DataContainer = styled.div`
-  padding-top: 1vh;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    padding-top: 0.3vh;
+    margin: 0.5vh;
   }
 `;
 
@@ -158,7 +162,7 @@ const Icon = styled.img`
   height: 3.4vh;
   margin-right: 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 2vh;
+    height: 2.5vh;
     margin-right: 0.6vh;
   }
 `;
@@ -168,6 +172,6 @@ const Value = styled.span`
   color: #727272;
   font-size: 16px;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 13px;
+    font-size: 14px;
   }
 `;
