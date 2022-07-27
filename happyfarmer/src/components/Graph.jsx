@@ -22,7 +22,7 @@ function Graph({ toggle, dataType, title, data }) {
   const test = {
     series: [
       {
-        name: 'Desktops',
+        name: title,
         data: data,
       },
     ],

@@ -33,7 +33,6 @@ function Home() {
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
   const [sunlight, setSunlight] = useState([]);
-  const [dateTime, setDateTime] = useState([]);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -158,14 +157,12 @@ function Home() {
                 dataType={data.temperature}
                 title='Temperature'
                 data={temperature}
-                //time={dateTime}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.humidity}
                 title='Humidity'
                 data={humidity}
-                //time={dateTime}
               />
             </GraphContainer>
             <GraphContainer>
@@ -174,14 +171,12 @@ function Home() {
                 dataType={data.sunlight}
                 title='Sunlight'
                 data={sunlight}
-                //time={dateTime}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.windspeed}
                 title='Windspeed'
                 data={windSpeed}
-                //time={dateTime}
               />
             </GraphContainer>
           </>
@@ -192,21 +187,25 @@ function Home() {
                 toggle={toggle}
                 dataType={data.temperature}
                 title='Temperature'
+                data={temperature}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.humidity}
                 title='Humidity'
+                data={humidity}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.sunlight}
                 title='Sunlight'
+                data={sunlight}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.windspeed}
                 title='Windspeed'
+                data={windSpeed}
               />
             </StyledSlider>
           </SliderContainer>
