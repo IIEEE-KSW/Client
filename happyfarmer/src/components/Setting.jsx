@@ -3,42 +3,78 @@ import styled from 'styled-components';
 import cancel from '../assets/cancel.png';
 import Slider from './Slider';
 
-function Setting({ open, getState, dataType, range, setRange, rangeVal }) {
-  const onClick = () => {
-    getState(!open);
+const Setting = ({ open, isOpen, title, range, setRange }) => {
+  const onCancelClick = () => {
+    isOpen(!open);
   };
-  const onOkClick = () => {
-    getState(!open);
-    const rangeList = [range.lower, range.upper];
+
+  const onOkClick = (e) => {
+    console.log(e);
+    isOpen(!open);
+    const rangeList = [range[0], range[1]];
     const rangeListStr = JSON.stringify(rangeList);
-    window.localStorage.setItem(dataType.name, rangeListStr);
+    window.localStorage.setItem(title, rangeListStr);
   };
 
   return (
     <>
-      {open && (
-        <Container>
-          <ModalContainer>
-            <Header>
-              <Title>Setting</Title>
-              <XButton type='button' onClick={onClick}>
-                <XButtonImage src={cancel} alt='cancel button'></XButtonImage>
-              </XButton>
-            </Header>
-            <Content>Range</Content>
-            <SliderContainer>
-              <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
-            </SliderContainer>
-            <ButtonContainer>
-              <CancelButton onClick={onClick}>CANCEL</CancelButton>
-              <OkButton onClick={onOkClick}>OK</OkButton>
-            </ButtonContainer>
-          </ModalContainer>
-        </Container>
-      )}
+      <Container>
+        <ModalContainer>
+          <Header>
+            <Title>Setting</Title>
+            <XButton type='button' onClick={onCancelClick}>
+              <XButtonImage src={cancel} alt='cancel button' />
+            </XButton>
+          </Header>
+          <Content>Range</Content>
+          <SliderContainer>
+            <Slider range={range} setRange={setRange} />
+          </SliderContainer>
+          <ButtonContainer>
+            <CancelButton onClick={onCancelClick}>CANCEL</CancelButton>
+            <OkButton onClick={onOkClick}>OK</OkButton>
+          </ButtonContainer>
+        </ModalContainer>
+      </Container>
     </>
   );
-}
+};
+
+// const Setting = ({ open, getState, dataType, range, setRange, rangeVal }) => {
+//   const onCancelClick = () => {
+//     getState(!open);
+//   };
+
+//   const onOkClick = () => {
+//     getState(!open);
+//     const rangeList = [range.lower, range.upper];
+//     const rangeListStr = JSON.stringify(rangeList);
+//     window.localStorage.setItem(dataType.name, rangeListStr);
+//   };
+
+//   return (
+//     <>
+//       <Container>
+//         <ModalContainer>
+//           <Header>
+//             <Title>Setting</Title>
+//             <XButton type='button' onClick={onCancelClick}>
+//               <XButtonImage src={cancel} alt='cancel button' />
+//             </XButton>
+//           </Header>
+//           <Content>Range</Content>
+//           <SliderContainer>
+//             <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
+//           </SliderContainer>
+//           <ButtonContainer>
+//             <CancelButton onClick={onCancelClick}>CANCEL</CancelButton>
+//             <OkButton onClick={onOkClick}>OK</OkButton>
+//           </ButtonContainer>
+//         </ModalContainer>
+//       </Container>
+//     </>
+//   );
+// };
 
 export default Setting;
 

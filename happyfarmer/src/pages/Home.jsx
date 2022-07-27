@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Search from '../components/Search';
 import Graph from '../components/Graph';
+// import Setting from '../components/Setting';
 import MapComponent from '../components/MapComponent';
 
 import logo from '../assets/logo.png';
@@ -15,7 +16,7 @@ import selectOff from '../assets/selectoff.png';
 import { useSelector } from 'react-redux';
 import { getStationSensor, getStation, getStationList } from '../apis/api';
 
-import { data } from '../components/graphdata';
+// import { data } from '../components/graphdata';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
@@ -152,61 +153,21 @@ function Home() {
         {toggle ? (
           <>
             <GraphContainer>
-              <Graph
-                toggle={toggle}
-                dataType={data.temperature}
-                title='Temperature'
-                data={temperature}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.humidity}
-                title='Humidity'
-                data={humidity}
-              />
+              <Graph toggle={toggle} title='Temperature' data={temperature} />
+              <Graph toggle={toggle} title='Humidity' data={humidity} />
             </GraphContainer>
             <GraphContainer>
-              <Graph
-                toggle={toggle}
-                dataType={data.sunlight}
-                title='Sunlight'
-                data={sunlight}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.windspeed}
-                title='Windspeed'
-                data={windSpeed}
-              />
+              <Graph toggle={toggle} title='Sunlight' data={sunlight} />
+              <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </GraphContainer>
           </>
         ) : (
           <SliderContainer>
             <StyledSlider {...sliderSetting}>
-              <Graph
-                toggle={toggle}
-                dataType={data.temperature}
-                title='Temperature'
-                data={temperature}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.humidity}
-                title='Humidity'
-                data={humidity}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.sunlight}
-                title='Sunlight'
-                data={sunlight}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.windspeed}
-                title='Windspeed'
-                data={windSpeed}
-              />
+              <Graph toggle={toggle} title='Temperature' data={temperature} />
+              <Graph toggle={toggle} title='Humidity' data={humidity} />
+              <Graph toggle={toggle} title='Sunlight' data={sunlight} />
+              <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </StyledSlider>
           </SliderContainer>
         )}

@@ -36,17 +36,16 @@ const marks = {
   },
 };
 
-const Sliders = ({ range, setRange, rangeVal }) => {
+const Sliders = ({ range, setRange }) => {
   const onSliderChange = (val) => {
-    const value = { ...val, lower: val[0], upper: val[1] };
-    setRange(value);
+    setRange(val);
   };
 
   return (
     <Range
       allowCross={false}
-      defaultValue={[rangeVal[0], rangeVal[1]]}
-      value={[range.lower, range.upper]}
+      defaultValue={[range[0], range[1]]}
+      value={[range[0], range[1]]}
       marks={marks}
       handle={handle}
       onChange={onSliderChange}
