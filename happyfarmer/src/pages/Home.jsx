@@ -28,6 +28,15 @@ function Home() {
   const [markers, setMarkers] = useState([]);
 
   const [toggle, setToggle] = useState(true);
+  useEffect(() => {
+    const matchSize = window.matchMedia(
+      'screen and (max-width: 767px) and (orientation: portrait)'
+    );
+    if (matchSize.matches) {
+      setToggle(false);
+    }
+  }, [setToggle]);
+
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
