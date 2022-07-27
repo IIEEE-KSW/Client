@@ -28,6 +28,7 @@ function Home() {
   const [markers, setMarkers] = useState([]);
 
   const [toggle, setToggle] = useState(true);
+
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
@@ -102,6 +103,24 @@ function Home() {
     const end = '2022-06-25T17:45:00';
     getStationSensor(3, start, end).then((data) => {
       console.log(data);
+      const temp = data.map((d) => ({
+        x: d.dateTime,
+        y: d.air.temperature.toFixed(0),
+      }));
+      const humi = data.map((d) => ({
+        x: d.dateTime,
+        y: d.air.humidity.toFixed(0),
+      }));
+      const wind = data.map((d) => ({
+        x: d.dateTime,
+        y: d.windSpeed.toFixed(0),
+      }));
+      const sun = data.map((d) => ({ x: d.dateTime, y: d.uv.toFixed(0) }));
+
+      setTemperature(temp);
+      setHumidity(humi);
+      setWindSpeed(wind);
+      setSunlight(sun);
     });
     // }
   }, [stationId]);
@@ -137,11 +156,13 @@ function Home() {
                 toggle={toggle}
                 dataType={data.temperature}
                 title='Temperature'
+                data={temperature}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.humidity}
                 title='Humidity'
+                data={humidity}
               />
             </GraphContainer>
             <GraphContainer>
@@ -149,11 +170,13 @@ function Home() {
                 toggle={toggle}
                 dataType={data.sunlight}
                 title='Sunlight'
+                data={sunlight}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.windspeed}
                 title='Windspeed'
+                data={windSpeed}
               />
             </GraphContainer>
           </>
@@ -164,21 +187,25 @@ function Home() {
                 toggle={toggle}
                 dataType={data.temperature}
                 title='Temperature'
+                data={temperature}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.humidity}
                 title='Humidity'
+                data={humidity}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.sunlight}
                 title='Sunlight'
+                data={sunlight}
               />
               <Graph
                 toggle={toggle}
                 dataType={data.windspeed}
                 title='Windspeed'
+                data={windSpeed}
               />
             </StyledSlider>
           </SliderContainer>
