@@ -14,8 +14,7 @@ import selectOff from '../assets/selectoff.png';
 
 import { useSelector } from 'react-redux';
 import { getStationSensor, getStation, getStationList } from '../apis/api';
-
-import { data } from '../components/graphdata';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
@@ -41,7 +40,7 @@ function Home() {
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
-  const [sunlight, setSunlight] = useState([]);
+  const [pressure, setPressure] = useState([]);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -110,7 +109,7 @@ function Home() {
     //test
     const start = '2022-06-23T20:30:00';
     const end = '2022-06-25T17:45:00';
-    getStationSensor(3, start, end).then((data) => {
+    getStationSensor(1, start, end).then((data) => {
       console.log(data);
       const temp = data.map((d) => ({
         x: d.dateTime,
@@ -124,12 +123,15 @@ function Home() {
         x: d.dateTime,
         y: d.windSpeed.toFixed(0),
       }));
-      const sun = data.map((d) => ({ x: d.dateTime, y: d.uv.toFixed(0) }));
+      const pres = data.map((d) => ({
+        x: d.dateTime,
+        y: d.air.pressure.toFixed(0),
+      }));
 
       setTemperature(temp);
       setHumidity(humi);
       setWindSpeed(wind);
-      setSunlight(sun);
+      setPressure(pres);
     });
     // }
   }, [stationId]);
@@ -146,6 +148,7 @@ function Home() {
     <Body>
       <Header>
         <Logo src={logo} alt='logo'></Logo>
+        <StationLink to='/station'>🤨</StationLink>
         <Search options={options} />
       </Header>
       <GraphsSection>
@@ -161,61 +164,21 @@ function Home() {
         {toggle ? (
           <>
             <GraphContainer>
-              <Graph
-                toggle={toggle}
-                dataType={data.temperature}
-                title='Temperature'
-                data={temperature}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.humidity}
-                title='Humidity'
-                data={humidity}
-              />
+              <Graph toggle={toggle} title='Temperature' data={temperature} />
+              <Graph toggle={toggle} title='Humidity' data={humidity} />
             </GraphContainer>
             <GraphContainer>
-              <Graph
-                toggle={toggle}
-                dataType={data.sunlight}
-                title='Sunlight'
-                data={sunlight}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.windspeed}
-                title='Windspeed'
-                data={windSpeed}
-              />
+              <Graph toggle={toggle} title='Pressure' data={pressure} />
+              <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </GraphContainer>
           </>
         ) : (
           <SliderContainer>
             <StyledSlider {...sliderSetting}>
-              <Graph
-                toggle={toggle}
-                dataType={data.temperature}
-                title='Temperature'
-                data={temperature}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.humidity}
-                title='Humidity'
-                data={humidity}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.sunlight}
-                title='Sunlight'
-                data={sunlight}
-              />
-              <Graph
-                toggle={toggle}
-                dataType={data.windspeed}
-                title='Windspeed'
-                data={windSpeed}
-              />
+              <Graph toggle={toggle} title='Temperature' data={temperature} />
+              <Graph toggle={toggle} title='Humidity' data={humidity} />
+              <Graph toggle={toggle} title='Pressure' data={pressure} />
+              <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </StyledSlider>
           </SliderContainer>
         )}
@@ -273,6 +236,10 @@ const Logo = styled.img`
     height: 4vh;
     margin: 3vh 0;
   }
+`;
+
+const StationLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const GraphsSection = styled.section`

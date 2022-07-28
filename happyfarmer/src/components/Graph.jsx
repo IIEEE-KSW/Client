@@ -4,20 +4,15 @@ import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
 
-function Graph({ toggle, dataType, title, data }) {
-  const rangeData = window.localStorage.getItem(dataType.name);
-  let rangeVal;
+const Graph = ({ toggle, title, data }) => {
+  const [open, setOpen] = useState(false);
+  const [range, setRange] = useState(
+    JSON.parse(window.localStorage.getItem(title)) || [0, 0]
+  );
 
-  if (rangeData) {
-    rangeVal = JSON.parse(rangeData);
-  } else {
-    rangeVal = [0, 0];
-  }
-
-  const [range, setRange] = useState({
-    lower: rangeVal[0],
-    upper: rangeVal[1],
-  });
+  const isOpen = (open) => {
+    setOpen(open);
+  };
 
   const test = {
     series: [
@@ -30,8 +25,8 @@ function Graph({ toggle, dataType, title, data }) {
       annotations: {
         yaxis: [
           {
-            y: rangeVal[0],
-            y2: rangeVal[1],
+            y: range[0],
+            y2: range[1],
             fillColor: '#6bcbff',
             opacity: 0.15,
           },
@@ -111,22 +106,15 @@ function Graph({ toggle, dataType, title, data }) {
     },
   };
 
-  const [open, setOpen] = useState(false);
-  const getState = (open) => {
-    setOpen(open);
-    console.log(rangeVal[0], rangeVal[1]);
-  };
-
   return (
     <>
       {open && (
         <Setting
           open={open}
-          getState={getState}
-          dataType={dataType}
+          isOpen={isOpen}
           range={range}
           setRange={setRange}
-          rangeVal={rangeVal}
+          title={title}
         />
       )}
       <Container>
@@ -148,7 +136,7 @@ function Graph({ toggle, dataType, title, data }) {
       </Container>
     </>
   );
-}
+};
 
 export default Graph;
 
