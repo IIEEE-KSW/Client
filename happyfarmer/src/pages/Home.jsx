@@ -6,7 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Search from '../components/Search';
 import Graph from '../components/Graph';
-// import Setting from '../components/Setting';
 import MapComponent from '../components/MapComponent';
 
 import logo from '../assets/logo.png';
@@ -15,8 +14,6 @@ import selectOff from '../assets/selectoff.png';
 
 import { useSelector } from 'react-redux';
 import { getStationSensor, getStation, getStationList } from '../apis/api';
-
-// import { data } from '../components/graphdata';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tooltip from 'rc-tooltip';
 import Slider, { Range } from 'rc-slider';
 import './slider.css';

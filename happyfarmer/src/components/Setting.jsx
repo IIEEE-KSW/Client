@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import cancel from '../assets/cancel.png';
 import Slider from './Slider';
@@ -39,42 +39,6 @@ const Setting = ({ open, isOpen, title, range, setRange }) => {
     </>
   );
 };
-
-// const Setting = ({ open, getState, dataType, range, setRange, rangeVal }) => {
-//   const onCancelClick = () => {
-//     getState(!open);
-//   };
-
-//   const onOkClick = () => {
-//     getState(!open);
-//     const rangeList = [range.lower, range.upper];
-//     const rangeListStr = JSON.stringify(rangeList);
-//     window.localStorage.setItem(dataType.name, rangeListStr);
-//   };
-
-//   return (
-//     <>
-//       <Container>
-//         <ModalContainer>
-//           <Header>
-//             <Title>Setting</Title>
-//             <XButton type='button' onClick={onCancelClick}>
-//               <XButtonImage src={cancel} alt='cancel button' />
-//             </XButton>
-//           </Header>
-//           <Content>Range</Content>
-//           <SliderContainer>
-//             <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
-//           </SliderContainer>
-//           <ButtonContainer>
-//             <CancelButton onClick={onCancelClick}>CANCEL</CancelButton>
-//             <OkButton onClick={onOkClick}>OK</OkButton>
-//           </ButtonContainer>
-//         </ModalContainer>
-//       </Container>
-//     </>
-//   );
-// };
 
 export default Setting;
 
