@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import cancel from '../assets/cancel.png';
 import Slider from './Slider';
 
-const Setting = ({ open, isOpen, title, range, setRange }) => {
+const Setting = ({ open, isOpen, title, range, setRange, rangeVal }) => {
   const onCancelClick = () => {
     isOpen(!open);
   };
 
-  const onOkClick = (e) => {
-    console.log(e);
+  const onOkClick = () => {
     isOpen(!open);
-    const rangeList = [range[0], range[1]];
+    const rangeList = [range.lower, range.upper];
     const rangeListStr = JSON.stringify(rangeList);
     window.localStorage.setItem(title, rangeListStr);
   };
@@ -28,7 +27,7 @@ const Setting = ({ open, isOpen, title, range, setRange }) => {
           </Header>
           <Content>Range</Content>
           <SliderContainer>
-            <Slider range={range} setRange={setRange} />
+            <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
           </SliderContainer>
           <ButtonContainer>
             <CancelButton onClick={onCancelClick}>CANCEL</CancelButton>

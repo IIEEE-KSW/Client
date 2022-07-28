@@ -6,9 +6,14 @@ import setting from '../assets/settings.png';
 
 const Graph = ({ toggle, title, data }) => {
   const [open, setOpen] = useState(false);
-  const [range, setRange] = useState(
-    JSON.parse(window.localStorage.getItem(title)) || [0, 0]
-  );
+
+  const rangeData = window.localStorage.getItem(title);
+  let rangeVal = JSON.parse(rangeData) || [0, 0];
+
+  const [range, setRange] = useState({
+    lower: rangeVal[0],
+    upper: rangeVal[1],
+  });
 
   const isOpen = (open) => {
     setOpen(open);
@@ -25,8 +30,8 @@ const Graph = ({ toggle, title, data }) => {
       annotations: {
         yaxis: [
           {
-            y: range[0],
-            y2: range[1],
+            y: rangeVal[0],
+            y2: rangeVal[1],
             fillColor: '#6bcbff',
             opacity: 0.15,
           },
@@ -115,6 +120,7 @@ const Graph = ({ toggle, title, data }) => {
           range={range}
           setRange={setRange}
           title={title}
+          rangeVal={rangeVal}
         />
       )}
       <Container>
