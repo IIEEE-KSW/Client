@@ -59,3 +59,12 @@ export const getStation = async (id) => {
     isError(e);
   }
 };
+
+export const postStation = async (data) => {
+  try {
+    const res = await http.post(`/api/v1/stations`, data);
+    return res.data;
+  } catch (e) {
+    isError(e);
+  }
+};

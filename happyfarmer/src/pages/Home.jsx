@@ -14,6 +14,7 @@ import selectOff from '../assets/selectoff.png';
 
 import { useSelector } from 'react-redux';
 import { getStationSensor, getStation, getStationList } from '../apis/api';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const stationId = useSelector(({ station }) => station.id);
@@ -99,7 +100,7 @@ function Home() {
     //test
     const start = '2022-06-23T20:30:00';
     const end = '2022-06-25T17:45:00';
-    getStationSensor(3, start, end).then((data) => {
+    getStationSensor(1, start, end).then((data) => {
       console.log(data);
       const temp = data.map((d) => ({
         x: d.dateTime,
@@ -135,6 +136,7 @@ function Home() {
     <Body>
       <Header>
         <Logo src={logo} alt='logo'></Logo>
+        <StationLink to='/station'>🤨</StationLink>
         <Search options={options} />
       </Header>
       <GraphsSection>
@@ -222,6 +224,10 @@ const Logo = styled.img`
     height: 4vh;
     margin: 3vh 0;
   }
+`;
+
+const StationLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const GraphsSection = styled.section`
