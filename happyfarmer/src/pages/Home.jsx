@@ -31,7 +31,7 @@ function Home() {
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
   const [windSpeed, setWindSpeed] = useState([]);
-  const [sunlight, setSunlight] = useState([]);
+  const [pressure, setPressure] = useState([]);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -114,12 +114,15 @@ function Home() {
         x: d.dateTime,
         y: d.windSpeed.toFixed(0),
       }));
-      const sun = data.map((d) => ({ x: d.dateTime, y: d.uv.toFixed(0) }));
+      const pres = data.map((d) => ({
+        x: d.dateTime,
+        y: d.air.pressure.toFixed(0),
+      }));
 
       setTemperature(temp);
       setHumidity(humi);
       setWindSpeed(wind);
-      setSunlight(sun);
+      setPressure(pres);
     });
     // }
   }, [stationId]);
@@ -156,7 +159,7 @@ function Home() {
               <Graph toggle={toggle} title='Humidity' data={humidity} />
             </GraphContainer>
             <GraphContainer>
-              <Graph toggle={toggle} title='Sunlight' data={sunlight} />
+              <Graph toggle={toggle} title='Pressure' data={pressure} />
               <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </GraphContainer>
           </>
@@ -165,7 +168,7 @@ function Home() {
             <StyledSlider {...sliderSetting}>
               <Graph toggle={toggle} title='Temperature' data={temperature} />
               <Graph toggle={toggle} title='Humidity' data={humidity} />
-              <Graph toggle={toggle} title='Sunlight' data={sunlight} />
+              <Graph toggle={toggle} title='Pressure' data={pressure} />
               <Graph toggle={toggle} title='Windspeed' data={windSpeed} />
             </StyledSlider>
           </SliderContainer>
