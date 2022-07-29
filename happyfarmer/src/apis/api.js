@@ -4,9 +4,9 @@ const isError = (e) => {
   console.log(e);
 };
 
-export const getSensorList = async () => {
+export const getSensorList = async (id) => {
   try {
-    const res = await http.get(`/api/v1/sensors`);
+    const res = await http.get(`/api/v1/stations/${id}/sensors`);
     return res.data;
   } catch (e) {
     isError(e);

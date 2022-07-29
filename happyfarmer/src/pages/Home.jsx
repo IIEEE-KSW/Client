@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -12,12 +15,15 @@ import logo from '../assets/logo.png';
 import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 
-import { useSelector } from 'react-redux';
-import { getStationSensor, getStation, getStationList } from '../apis/api';
-import { Link } from 'react-router-dom';
+import {
+  getSensorList,
+  getStationSensor,
+  getStation,
+  getStationList,
+} from '../apis/api';
 
-function Home() {
-  const stationId = useSelector(({ station }) => station.id);
+const Home = () => {
+  const stationId = useSelector(({ station }) => station.id) || 1; //test
 
   const centerRef = useRef({ lng: null, lat: null });
 
@@ -25,6 +31,18 @@ function Home() {
 
   const [options, setOptions] = useState([]);
   const [markers, setMarkers] = useState([]);
+
+  const [startDate, setStartDate] = useState(
+    moment().format(`YYYY-MM-DDTHH:mm:ss`)
+  );
+  const [endDate, setEndDate] = useState(
+    moment().subtract(1, 'months').endOf('month').format(`YYYY-MM-DDTHH:mm:ss`)
+  );
+
+  const [temperature, setTemperature] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+  const [windSpeed, setWindSpeed] = useState([]);
+  const [pressure, setPressure] = useState([]);
 
   const [toggle, setToggle] = useState(true);
 
@@ -36,11 +54,6 @@ function Home() {
       setToggle(false);
     }
   }, [setToggle]);
-
-  const [temperature, setTemperature] = useState([]);
-  const [humidity, setHumidity] = useState([]);
-  const [windSpeed, setWindSpeed] = useState([]);
-  const [pressure, setPressure] = useState([]);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -105,35 +118,32 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    // if (stationId) {
-    //test
-    const start = '2022-06-23T20:30:00';
-    const end = '2022-06-25T17:45:00';
-    getStationSensor(1, start, end).then((data) => {
-      console.log(data);
-      const temp = data.map((d) => ({
-        x: d.dateTime,
-        y: d.air.temperature.toFixed(0),
-      }));
-      const humi = data.map((d) => ({
-        x: d.dateTime,
-        y: d.air.humidity.toFixed(0),
-      }));
-      const wind = data.map((d) => ({
-        x: d.dateTime,
-        y: d.windSpeed.toFixed(0),
-      }));
-      const pres = data.map((d) => ({
-        x: d.dateTime,
-        y: d.air.pressure.toFixed(0),
-      }));
+    if (stationId) {
+      getSensorList(stationId).then((data) => {
+        console.log(data);
+        const temp = data.map((d) => ({
+          x: d.dateTime,
+          y: d.air.temperature.toFixed(0),
+        }));
+        const humi = data.map((d) => ({
+          x: d.dateTime,
+          y: d.air.humidity.toFixed(0),
+        }));
+        const wind = data.map((d) => ({
+          x: d.dateTime,
+          y: d.windSpeed.toFixed(0),
+        }));
+        const pres = data.map((d) => ({
+          x: d.dateTime,
+          y: d.air.pressure.toFixed(0),
+        }));
 
-      setTemperature(temp);
-      setHumidity(humi);
-      setWindSpeed(wind);
-      setPressure(pres);
-    });
-    // }
+        setTemperature(temp);
+        setHumidity(humi);
+        setWindSpeed(wind);
+        setPressure(pres);
+      });
+    }
   }, [stationId]);
 
   const sliderSetting = {
@@ -197,7 +207,7 @@ function Home() {
       <Footer>© 2022. IIEEE in Purdue Univ. All rights reserved.</Footer>
     </Body>
   );
-}
+};
 
 export default Home;
 
