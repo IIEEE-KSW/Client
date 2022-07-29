@@ -2,10 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import cancel from '../assets/cancel.png';
 import Slider from './Slider';
+import { rangeMinMax } from '../assets/data/rangeMinMax';
 
 const Setting = ({ open, isOpen, title, range, setRange, rangeVal }) => {
   const onCancelClick = () => {
     isOpen(!open);
+    if (
+      rangeVal[0] === rangeMinMax[title].min &&
+      rangeVal[1] === rangeMinMax[title].min
+    ) {
+      setRange({
+        lower: rangeMinMax[title].min,
+        upper: rangeMinMax[title].min,
+      });
+    } else {
+      setRange({ lower: rangeVal[0], upper: rangeVal[1] });
+    }
   };
 
   const onOkClick = () => {
