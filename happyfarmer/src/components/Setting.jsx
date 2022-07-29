@@ -27,7 +27,12 @@ const Setting = ({ open, isOpen, title, range, setRange, rangeVal }) => {
           </Header>
           <Content>Range</Content>
           <SliderContainer>
-            <Slider range={range} setRange={setRange} rangeVal={rangeVal} />
+            <Slider
+              range={range}
+              setRange={setRange}
+              rangeVal={rangeVal}
+              title={title}
+            />
           </SliderContainer>
           <ButtonContainer>
             <CancelButton onClick={onCancelClick}>CANCEL</CancelButton>
