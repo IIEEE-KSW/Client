@@ -71,7 +71,7 @@ const Container = styled.div`
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 90%;
-    margin: 0;
+    margin: 5% 0 0 0;
   }
 `;
 

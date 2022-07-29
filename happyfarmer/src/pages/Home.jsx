@@ -243,7 +243,7 @@ const Logo = styled.img`
   height: 7vh;
   margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 4vh;
+    height: 5vh;
     margin: 3vh 0;
   }
 `;
@@ -259,6 +259,7 @@ const GraphsSection = styled.section`
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 90%;
     margin: 0;
+    margin-top: 3%;
   }
 `;
 
@@ -274,7 +275,7 @@ const Title = styled.div`
   color: #515151;
   margin: 2vh 0 3.5vh 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 16px;
+    font-size: 20px;
     margin: 1.5vh;
   }
 `;
@@ -290,12 +291,18 @@ const SelectButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 3.3vh;
+  }
 `;
 
 const SelectButtonImage = styled.img`
   height: 4vh;
   border-radius: 50%;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.3);
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 3.3vh;
+  }
 `;
 
 const GraphContainer = styled.div`
@@ -319,7 +326,7 @@ const SliderContainer = styled.div`
 `;
 
 const StyledSlider = styled(Slider)`
-  width: 85%;
+  width: 84%;
   display: flex;
   justify-content: center;
   align-items: center;
