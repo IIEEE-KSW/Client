@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -27,7 +27,7 @@ function Home() {
   const [markers, setMarkers] = useState([]);
 
   const [toggle, setToggle] = useState(true);
-  
+
   useEffect(() => {
     const matchSize = window.matchMedia(
       'screen and (max-width: 767px) and (orientation: portrait)'
