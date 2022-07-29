@@ -90,7 +90,7 @@ const Graph = ({ toggle, title, data }) => {
           breakpoint: 767,
           options: {
             chart: {
-              height: '140',
+              height: '160',
               parentHeightOffset: 0,
             },
           },
@@ -112,7 +112,13 @@ const Graph = ({ toggle, title, data }) => {
   };
 
   return (
-    <>
+    <Container>
+      <TitleContainer>
+        <DataTitle>{title}</DataTitle>
+        <SettingButton type='button' onClick={() => setOpen(true)}>
+          <SettingButtonImage src={setting} alt='setting button' />
+        </SettingButton>
+      </TitleContainer>
       {open && (
         <Setting
           open={open}
@@ -123,24 +129,16 @@ const Graph = ({ toggle, title, data }) => {
           rangeVal={rangeVal}
         />
       )}
-      <Container>
-        <TitleContainer>
-          <DataTitle>{title}</DataTitle>
-          <SettingButton type='button' onClick={() => setOpen(true)}>
-            <SettingButtonImage src={setting} alt='setting button' />
-          </SettingButton>
-        </TitleContainer>
-        <GraphContainer>
-          <ReactApexChart
-            options={test.options}
-            series={test.series}
-            type='line'
-            height={toggle ? 150 : 320}
-            width={toggle ? '100%' : 430}
-          />
-        </GraphContainer>
-      </Container>
-    </>
+      <GraphContainer>
+        <ReactApexChart
+          options={test.options}
+          series={test.series}
+          type='line'
+          height={toggle ? 150 : 320}
+          width={toggle ? '100%' : 430}
+        />
+      </GraphContainer>
+    </Container>
   );
 };
 
@@ -152,8 +150,6 @@ const Container = styled.div`
   padding: 0.5vh 2.5vh 2.1vh 2.5vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 93%;
-    margin: 2vh 0;
   }
 `;
 
