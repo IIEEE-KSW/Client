@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
+import { rangeMinMax } from '../assets/data/rangeMinMax';
+import { useEffect } from 'react';
 
 const Graph = ({ toggle, title, data }) => {
   const [open, setOpen] = useState(false);
 
   const rangeData = window.localStorage.getItem(title);
-  let rangeVal = JSON.parse(rangeData) || [0, 0];
+  const rangeVal = JSON.parse(rangeData) || [
+    rangeMinMax[title].min,
+    rangeMinMax[title].min,
+  ];
 
   const [range, setRange] = useState({
     lower: rangeVal[0],
