@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import temperatureImg from '../assets/temperature.png';
 import humidityImg from '../assets/humidity.png';
 import anemometerImg from '../assets/anemometer.png';
-import uvImg from '../assets/uv.png';
+import pressureImg from '../assets/pressure.png';
 import { getStationSensorOne } from '../apis/api';
 
 const Markers = ({ id, lng, lat }) => {
@@ -18,8 +18,9 @@ const Markers = ({ id, lng, lat }) => {
 
   const [temperature, setTemperature] = useState(0);
   const [humidity, setHumidity] = useState(0);
+  const [pressure, setPressure] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
-  const [sunlight, setSunlight] = useState(0);
+
   const [date, setDate] = useState(null);
 
   const handleClickMark = (e) => {
@@ -33,8 +34,8 @@ const Markers = ({ id, lng, lat }) => {
       // console.log(data);
       setTemperature(data.air.temperature.toFixed(0));
       setHumidity(data.air.humidity.toFixed(0));
+      setPressure(data.air.pressure.toFixed(0));
       setWindSpeed(data.windSpeed.toFixed(0));
-      setSunlight(data.uv.toFixed(0));
 
       const ago = moment(data.dateTime).fromNow();
       setDate(ago);
@@ -78,12 +79,12 @@ const Markers = ({ id, lng, lat }) => {
               </DataWrapper>
               <DataWrapper>
                 <DataContainer>
-                  <Icon src={anemometerImg} alt='anemometer icon'></Icon>
-                  <Value>{windSpeed} ㎧</Value>
+                  <Icon src={pressureImg} alt='pressure icon'></Icon>
+                  <Value>{pressure} ㎩</Value>
                 </DataContainer>
                 <DataContainer>
-                  <Icon src={uvImg} alt='uv icon'></Icon>
-                  <Value>{sunlight} Fº</Value>
+                  <Icon src={anemometerImg} alt='anemometer icon'></Icon>
+                  <Value>{windSpeed} ㎧</Value>
                 </DataContainer>
               </DataWrapper>
             </Body>
