@@ -88,20 +88,20 @@ function Home() {
     getGeoLoc();
 
     //station 마커 표시
-    getStationList().then((data) => {
-      const options = data.map((d) => ({
-        value: d.id,
-        label: d.location.zipCode,
-      }));
-      setOptions(options);
+    // getStationList().then((data) => {
+    //   const options = data.map((d) => ({
+    //     value: d.id,
+    //     label: d.location.zipCode,
+    //   }));
+    //   setOptions(options);
 
-      const markers = data.map((d) => ({
-        id: d.id,
-        name: d.name,
-        position: { lat: d.location.latitude, lng: d.location.longitude },
-      }));
-      setMarkers(markers);
-    });
+    //   const markers = data.map((d) => ({
+    //     id: d.id,
+    //     name: d.name,
+    //     position: { lat: d.location.latitude, lng: d.location.longitude },
+    //   }));
+    //   setMarkers(markers);
+    // });
   }, []);
 
   useEffect(() => {
