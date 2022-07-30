@@ -66,11 +66,10 @@ function Search({ options }) {
 export default Search;
 
 const Container = styled.div`
-  width: 22%;
-  margin-right: 5%;
+  width: 50vh;
   position: relative;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    width: 90%;
+    width: 100%;
     margin: 0;
   }
 `;
