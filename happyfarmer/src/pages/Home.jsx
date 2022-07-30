@@ -103,12 +103,11 @@ const Home = () => {
 
     //station 마커 표시
     getStationList().then((data) => {
-      console.log(data);
-      // const options = data.map((d) => ({
-      //   value: d.id,
-      //   label: d.name,
-      // }));
-      // setOptions(options);
+      const options = data.map((d) => ({
+        value: d.id,
+        label: d.location.zipCode,
+      }));
+      setOptions(options);
 
       const markers = data.map((d) => ({
         id: d.id,
