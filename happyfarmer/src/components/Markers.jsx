@@ -32,13 +32,15 @@ const Markers = ({ id, lng, lat }) => {
   useEffect(() => {
     getStationSensorOne(id).then((data) => {
       // console.log(data);
-      setTemperature(data.air.temperature.toFixed(0));
-      setHumidity(data.air.humidity.toFixed(0));
-      setPressure(data.air.pressure.toFixed(0));
-      setWindSpeed(data.windSpeed.toFixed(0));
+      if (data) {
+        setTemperature(data.air.temperature.toFixed(0));
+        setHumidity(data.air.humidity.toFixed(0));
+        setPressure(data.air.pressure.toFixed(0));
+        setWindSpeed(data.windSpeed.toFixed(0));
 
-      const ago = moment(data.dateTime).fromNow();
-      setDate(ago);
+        const ago = moment(data.dateTime).fromNow();
+        setDate(ago);
+      }
     });
   }, [id]);
 
