@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { postStation } from '../apis/api';
@@ -46,11 +47,13 @@ const AddStation = () => {
   return (
     <Container>
       <Header>
-        <Logo src={logo} alt='logo'></Logo>
+        <Link to='/'>
+          <Logo src={logo} alt='logo' />
+        </Link>
       </Header>
       <Body>
         <Title>Register Station</Title>
-        {showMsg && <Msg>Please fill in all blank</Msg>}
+        {showMsg && <Msg>* Please fill in all blanks</Msg>}
         <Input
           placeholder='EUI'
           name='eui'
@@ -81,7 +84,9 @@ const AddStation = () => {
           type='text'
           onChange={(e) => setZipCode(e.target.value)}
         />
-        <Btn onClick={onClickRegister}>Register</Btn>
+        <BtnContainer>
+          <Btn onClick={onClickRegister}>Register</Btn>
+        </BtnContainer>
       </Body>
     </Container>
   );
@@ -95,15 +100,21 @@ const Container = styled.div`
   background: #f1f1f1;
   height: 100vh;
   overflow: hidden;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const Header = styled.header`
   width: 100%;
-  padding: 5vh 0;
+  padding: 6vh 0 4.5vh 0;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 90%;
-    flex-direction: column;
-    justify-content: space-evenly;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 3vh 0;
   }
 `;
@@ -120,45 +131,75 @@ const Logo = styled.img`
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 40%;
   margin: 0 auto;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    width: 75%;
+  }
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
   font-size: 25px;
   color: #515151;
-  margin: 2vh 0 3.5vh 2vh;
+  margin: 2vh 0 3.5vh 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 16px;
-    margin: 1.5vh;
+    margin: 2vh 0 2vh 1vh;
   }
 `;
 
 const Msg = styled.div`
-  font-family: 'poppinsB';
-  color: #e62222;
-  margin: 2vh 0 3.5vh 2vh;
-  /* @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 16px;
-    margin: 1.5vh;
-  } */
+  font-family: 'poppinsR';
+  color: #e62243;
+  font-size: 14px;
+  text-align: right;
+  margin: 0.5vh 2vh 1.7vh 0;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    margin: 0.5vh 1.6vh 1vh 0;
+    font-size: 12px;
+  }
 `;
 
 const Input = styled.input`
-  padding: 12px;
+  padding: 2.2vh;
+  font-family: 'poppinsM';
+  font-size: 13px;
+  margin: 1vh 0;
+  border-radius: 15px;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 11px;
+    padding: 1.5vh;
+    margin: 0.6vh 0;
+    border-radius: 10px;
+  }
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: right;
 `;
 
 const Btn = styled.button`
   font-family: 'poppinsSB';
-  padding: 12px;
-  /* color: #65b065; */
-  /* background-color: #fff; */
-  /* border: 2px solid #65b065; */
-  color: #fff;
+  font-size: 14px;
+  padding: 1.8vh;
+  color: #ffffff;
   background-color: #65b065;
-  border: #fff;
-  margin-top: 10px;
-  border-radius: 4px;
+  border: transparent;
+  margin-top: 2vh;
+  border-radius: 15px;
+  width: 28%;
   cursor: pointer;
+  box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.3);
+  &:hover {
+    background-color: #5ba35b;
+  }
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 1.2vh;
+    width: 42%;
+    margin-top: 1.1vh;
+  }
 `;

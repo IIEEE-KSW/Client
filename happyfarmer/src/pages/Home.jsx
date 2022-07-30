@@ -14,6 +14,7 @@ import MapComponent from '../components/MapComponent';
 import logo from '../assets/logo.png';
 import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
+import register from '../assets/register.png';
 
 import {
   getSensorList,
@@ -157,9 +158,13 @@ const Home = () => {
   return (
     <Body>
       <Header>
-        <Logo src={logo} alt='logo'></Logo>
-        <StationLink to='/station'>🤨</StationLink>
-        <Search options={options} />
+        <Logo src={logo} alt='logo' />
+        <RightWrapper>
+          <Search options={options} />
+          <StationLink to='/station'>
+            <RegisterBtn src={register} alt='register button' />
+          </StationLink>
+        </RightWrapper>
       </Header>
       <GraphsSection>
         <TitleContainer>
@@ -229,12 +234,13 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 5vh 0;
+  align-items: top;
+  padding: 6vh 0 4.5vh 0;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     width: 90%;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
     padding: 3vh 0;
   }
 `;
@@ -245,6 +251,28 @@ const Logo = styled.img`
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 5vh;
     margin: 3vh 0;
+  }
+`;
+
+const RightWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5%;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    flex-direction: column-reverse;
+    margin-right: 0;
+    width: 88%;
+  }
+`;
+
+const RegisterBtn = styled.img`
+  height: 4vh;
+  margin-left: 4vh;
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    height: 2.3vh;
+    margin-left: 0;
+    margin-bottom: 2.5vh;
   }
 `;
 
