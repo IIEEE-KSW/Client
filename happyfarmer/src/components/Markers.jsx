@@ -100,9 +100,9 @@ export default Markers;
 const Container = styled.div`
   width: fit-content;
   height: fit-content;
-  padding: 2vh 2vh 1.3vh 2vh;
+  padding: 2.5vh 2.5vh 1.5vh 2.5vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    padding: 1.5vh 1.5vh 1vh 1.5vh;
+    padding: 1.8vh 1.8vh 1.3vh 1.8vh;
   }
 `;
 
@@ -111,28 +111,28 @@ const Header = styled.div`
   height: fit-content;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   color: #65b065;
   border-bottom: 1px solid #65b065;
   padding-bottom: 0.5vh;
-  margin-bottom: 1vh;
+  margin-bottom: 1.5vh;
 `;
 
 const Title = styled.div`
   font-family: 'poppinsB';
-  font-size: 14px;
+  font-size: 16px;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 13px;
+    font-size: 15px;
   }
 `;
 
 const Time = styled.div`
   font-family: 'poppinsL';
-  font-size: 6px;
-  color: #d1d1d1;
+  font-size: 11px;
+  color: #b3b3b3;
   margin: 0 2vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 3px;
+    font-size: 9px;
     margin: 0 1.4vh;
   }
 `;
@@ -153,26 +153,26 @@ const DataContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1vh;
+  margin: 1.6vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    margin: 0.5vh;
+    margin: 1vh;
   }
 `;
 
 const Icon = styled.img`
-  height: 3.4vh;
-  margin-right: 1vh;
+  height: 3.5vh;
+  margin-right: 1.5vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 2.5vh;
-    margin-right: 0.6vh;
+    height: 2.9vh;
+    margin-right: 1vh;
   }
 `;
 
 const Value = styled.span`
   font-family: 'poppinsSB';
   color: #727272;
-  font-size: 16px;
+  font-size: 18px;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 14px;
+    font-size: 17px;
   }
 `;
