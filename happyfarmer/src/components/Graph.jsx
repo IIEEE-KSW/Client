@@ -4,7 +4,6 @@ import ReactApexChart from 'react-apexcharts';
 import Setting from './Setting';
 import setting from '../assets/settings.png';
 import { rangeMinMax } from '../assets/data/rangeMinMax';
-import { useEffect } from 'react';
 
 const Graph = ({ toggle, title, data }) => {
   const [open, setOpen] = useState(false);
@@ -140,7 +139,7 @@ const Graph = ({ toggle, title, data }) => {
           series={test.series}
           type='line'
           height={toggle ? 150 : 320}
-          width={toggle ? '100%' : 430}
+          width={toggle ? '100%' : 410}
         />
       </GraphContainer>
     </Container>
@@ -152,9 +151,11 @@ export default Graph;
 const Container = styled.div`
   width: 93%;
   height: fit-content;
-  padding: 0.5vh 2.5vh 2.1vh 2.5vh;
+  margin: 0 auto;
+  padding: 1vh 2vh;
   overflow: hidden;
   @media screen and (max-width: 767px) and (orientation: portrait) {
+    padding: 1vh;
   }
 `;
 
@@ -174,7 +175,7 @@ const DataTitle = styled.div`
   color: #5f5f5f;
   margin-left: 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    font-size: 11px;
+    font-size: 13px;
     margin-left: 0.5vh;
   }
 `;
@@ -191,15 +192,15 @@ const SettingButton = styled.button`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.6vh;
-    margin-right: 0.4vh;
+    height: 1.8vh;
+    margin-right: 0.5vh;
   }
 `;
 
 const SettingButtonImage = styled.img`
   height: 2.5vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 1.6vh;
+    height: 1.8vh;
   }
 `;
 
@@ -211,5 +212,5 @@ const GraphContainer = styled.div`
   background: #ffffff;
   padding-top: 1vh;
   border-radius: 15px;
-  box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
+  box-shadow: 1px 3px 6px #8e8e8e29;
 `;
