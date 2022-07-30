@@ -24,7 +24,7 @@ import {
 } from '../apis/api';
 
 const Home = () => {
-  const stationId = useSelector(({ station }) => station.id) || 1; //test
+  const stationId = useSelector(({ station }) => station.id); //test
 
   const centerRef = useRef({ lng: null, lat: null });
 
@@ -103,9 +103,10 @@ const Home = () => {
 
     //station 마커 표시
     getStationList().then((data) => {
+      console.log(data);
       const options = data.map((d) => ({
         value: d.id,
-        label: d.location.zipCode,
+        label: d.name,
       }));
       setOptions(options);
 
