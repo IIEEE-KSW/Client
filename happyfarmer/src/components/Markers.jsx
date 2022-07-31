@@ -10,7 +10,7 @@ import humidityImg from '../assets/humidity.png';
 import anemometerImg from '../assets/anemometer.png';
 import pressureImg from '../assets/pressure.png';
 
-import { getStationSensorOne } from '../apis/api';
+import { getStationSensorOne, getStation } from '../apis/api';
 
 //켈빈 -> 화씨
 const kvToFh = (kelvin) => {
@@ -27,6 +27,7 @@ const Markers = ({ id, lng, lat }) => {
   const [pressure, setPressure] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
   const [date, setDate] = useState(null);
+  const [name, setName] = useState(null);
 
   const handleClickMark = (e) => {
     e.originalEvent.stopPropagation(); // If we let the click event propagates to the map, it will immediately close the popup
@@ -41,12 +42,19 @@ const Markers = ({ id, lng, lat }) => {
         setHumidity(data.air.humidity.toFixed(0));
         setPressure((data.air.pressure / 10).toFixed(1));
         setWindSpeed(data.windSpeed.toFixed(0));
-
         const ago = moment(data.dateTime).fromNow();
         setDate(ago);
       }
     });
   }, [id]);
+
+  useEffect(() => {
+    getStation(id).then((data) => {
+      if (data) {
+        setName(data.name);
+      }
+    });
+  });
 
   return (
     <>
@@ -57,7 +65,7 @@ const Markers = ({ id, lng, lat }) => {
         anchor='center'
         onClick={handleClickMark}
       >
-        <Pin />
+        <Pin size={25} name={name} />
       </Marker>
       {showPopup && (
         <Popup
