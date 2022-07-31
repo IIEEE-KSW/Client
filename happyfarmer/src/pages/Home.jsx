@@ -116,7 +116,7 @@ const Home = () => {
         console.log(data);
         const temp = data.map((d) => ({
           x: d.dateTime,
-          y: d.air.temperature.toFixed(0),
+          y: ((d.air.temperature - 273.15) * (9 / 5) + 32).toFixed(0),
         }));
         const humi = data.map((d) => ({
           x: d.dateTime,
@@ -128,7 +128,7 @@ const Home = () => {
         }));
         const pres = data.map((d) => ({
           x: d.dateTime,
-          y: d.air.pressure.toFixed(0),
+          y: (d.air.pressure / 10).toFixed(0),
         }));
 
         setTemperature(temp);

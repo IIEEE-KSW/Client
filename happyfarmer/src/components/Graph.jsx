@@ -103,10 +103,6 @@ const Graph = ({ toggle, title, data }) => {
       },
     },
     yaxis: {
-      labels: {
-        minWidth: 8,
-        maxWidth: 15,
-      },
       formatter: function (data) {
         return (data / 100000000).toFixed(0);
       },
