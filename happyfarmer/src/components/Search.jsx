@@ -17,7 +17,7 @@ const Search = ({ options }) => {
     <Container>
       <SelectContainer>
         <Select
-          placeholder='Find by Zipcode'
+          placeholder='Find by name'
           styles={customStyles}
           options={options}
           onChange={handleSelectItem}
