@@ -244,7 +244,7 @@ const Logo = styled.img`
   margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     height: 5vh;
-    margin: 3vh 0;
+    margin: 3.2vh 0;
   }
 `;
 
@@ -264,9 +264,9 @@ const RegisterBtn = styled.img`
   height: 4vh;
   margin-left: 4vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 2.3vh;
+    height: 2.8vh;
     margin-left: 0;
-    margin-bottom: 2.5vh;
+    margin-bottom: 2.8vh;
   }
 `;
 

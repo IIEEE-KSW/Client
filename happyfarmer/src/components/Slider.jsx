@@ -16,7 +16,10 @@ const handle = (props) => {
       visible
       placement='top'
       key={index}
-      overlayStyle={{ zIndex: 9999 }}
+      overlayStyle={{
+        zIndex: 9999,
+        fontFamily: 'poppinsR',
+      }}
     >
       <Handle value={value} {...restProps} />
     </Tooltip>

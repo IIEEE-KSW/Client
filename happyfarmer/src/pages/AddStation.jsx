@@ -122,8 +122,8 @@ const Logo = styled.img`
   height: 7vh;
   margin-left: 5%;
   @media screen and (max-width: 767px) and (orientation: portrait) {
-    height: 4vh;
-    margin: 3vh 0;
+    height: 5vh;
+    margin: 3.2vh 0;
   }
 `;
 
