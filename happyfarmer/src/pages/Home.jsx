@@ -27,9 +27,9 @@ const sliderSetting = {
 };
 
 const Home = () => {
-  const stationId = useSelector(({ station }) => station.id); //test
+  const stationId = useSelector(({ station }) => station.id);
 
-  const centerRef = useRef({ lng: null, lat: null });
+  const centerRef = useRef({ lng: -86.91, lat: 40.42 }); //test
 
   const [isGeoLoaded, setIsGeoLoaded] = useState(false);
 
