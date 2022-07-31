@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import cancel from '../assets/cancel.png';
 import Slider from './Slider';
+import cancel from '../assets/cancel.png';
 import { rangeMinMax } from '../assets/data/rangeMinMax';
 
 const Setting = ({ open, isOpen, title, range, setRange, rangeVal }) => {
@@ -22,9 +22,8 @@ const Setting = ({ open, isOpen, title, range, setRange, rangeVal }) => {
 
   const onOkClick = () => {
     isOpen(!open);
-    const rangeList = [range.lower, range.upper];
-    const rangeListStr = JSON.stringify(rangeList);
-    window.localStorage.setItem(title, rangeListStr);
+    const rangeList = JSON.stringify([range.lower, range.upper]);
+    window.localStorage.setItem(title, rangeList);
   };
 
   return (

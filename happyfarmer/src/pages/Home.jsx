@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import styled from 'styled-components';
+import moment from 'moment';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -16,12 +16,15 @@ import select from '../assets/select.png';
 import selectOff from '../assets/selectoff.png';
 import register from '../assets/register.png';
 
-import {
-  getSensorList,
-  getStationSensor,
-  getStation,
-  getStationList,
-} from '../apis/api';
+import { getSensorList, getStation, getStationList } from '../apis/api';
+
+const sliderSetting = {
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  adaptiveHeight: true,
+};
 
 const Home = () => {
   const stationId = useSelector(({ station }) => station.id); //test
@@ -33,28 +36,19 @@ const Home = () => {
   const [options, setOptions] = useState([]);
   const [markers, setMarkers] = useState([]);
 
+  const [temperature, setTemperature] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+  const [windSpeed, setWindSpeed] = useState([]);
+  const [pressure, setPressure] = useState([]);
+  const [toggle, setToggle] = useState(true);
+
+  //데이터 쌓인 이후 현재 시간 기준으로 한 달치만 보여주기
   const [startDate, setStartDate] = useState(
     moment().format(`YYYY-MM-DDTHH:mm:ss`)
   );
   const [endDate, setEndDate] = useState(
     moment().subtract(1, 'months').endOf('month').format(`YYYY-MM-DDTHH:mm:ss`)
   );
-
-  const [temperature, setTemperature] = useState([]);
-  const [humidity, setHumidity] = useState([]);
-  const [windSpeed, setWindSpeed] = useState([]);
-  const [pressure, setPressure] = useState([]);
-
-  const [toggle, setToggle] = useState(true);
-
-  useEffect(() => {
-    const matchSize = window.matchMedia(
-      'screen and (max-width: 767px) and (orientation: portrait)'
-    );
-    if (matchSize.matches) {
-      setToggle(false);
-    }
-  }, [setToggle]);
 
   const handleGeoSuccess = (pos) => {
     const lng = pos.coords.longitude;
@@ -71,21 +65,6 @@ const Home = () => {
   const handleGeoError = (err) => {
     console.log(err);
   };
-
-  //위치 업데이트
-  useEffect(() => {
-    if (stationId) {
-      setIsGeoLoaded(false);
-      getStation(stationId).then((data) => {
-        const coordsObj = {
-          lat: data.location.latitude,
-          lng: data.location.longitude,
-        };
-        centerRef.current = coordsObj;
-        setIsGeoLoaded(true);
-      });
-    }
-  }, [stationId]);
 
   useEffect(() => {
     //현재 위치 업데이트
@@ -121,6 +100,18 @@ const Home = () => {
 
   useEffect(() => {
     if (stationId) {
+      //지도상 위치 업데이트
+      setIsGeoLoaded(false);
+      getStation(stationId).then((data) => {
+        const coordsObj = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+        centerRef.current = coordsObj;
+        setIsGeoLoaded(true);
+      });
+
+      //그래프 업데이트
       getSensorList(stationId).then((data) => {
         console.log(data);
         const temp = data.map((d) => ({
@@ -148,13 +139,15 @@ const Home = () => {
     }
   }, [stationId]);
 
-  const sliderSetting = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    adaptiveHeight: true,
-  };
+  //그래프 반응형
+  useEffect(() => {
+    const matchSize = window.matchMedia(
+      'screen and (max-width: 767px) and (orientation: portrait)'
+    );
+    if (matchSize.matches) {
+      setToggle(false);
+    }
+  }, [setToggle]);
 
   return (
     <Body>

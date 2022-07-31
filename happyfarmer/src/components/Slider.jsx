@@ -1,8 +1,8 @@
 import React from 'react';
 import Tooltip from 'rc-tooltip';
 import Slider, { Range } from 'rc-slider';
-import './slider.css';
 import { rangeMinMax } from '../assets/data/rangeMinMax';
+import './slider.css';
 
 const Handle = Slider.Handle;
 
@@ -23,7 +23,7 @@ const handle = (props) => {
   );
 };
 
-const Sliders = ({ range, setRange, rangeVal, title }) => {
+const Sliders = ({ range, setRange, title }) => {
   const onSliderChange = (val) => {
     const value = { lower: val[0], upper: val[1] };
     setRange(value);

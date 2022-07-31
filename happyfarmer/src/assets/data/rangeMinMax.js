@@ -8,12 +8,12 @@ const rangeMinMax = {
     max: 100,
   },
   Pressure: {
-    min: 10,
-    max: 50,
+    min: 900,
+    max: 1200,
   },
   Windspeed: {
     min: 0,
-    max: 40,
+    max: 30,
   },
 };
 

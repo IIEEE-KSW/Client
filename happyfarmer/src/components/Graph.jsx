@@ -6,24 +6,22 @@ import setting from '../assets/settings.png';
 import { rangeMinMax } from '../assets/data/rangeMinMax';
 
 const Graph = ({ toggle, title, data }) => {
-  const [open, setOpen] = useState(false);
-
   const rangeData = window.localStorage.getItem(title);
   const rangeVal = JSON.parse(rangeData) || [
     rangeMinMax[title].min,
     rangeMinMax[title].min,
   ];
-
   const [range, setRange] = useState({
     lower: rangeVal[0],
     upper: rangeVal[1],
   });
 
+  const [open, setOpen] = useState(false);
   const isOpen = (open) => {
     setOpen(open);
   };
 
-  const test = {
+  const property = {
     series: [
       {
         name: title,
@@ -135,8 +133,8 @@ const Graph = ({ toggle, title, data }) => {
       )}
       <GraphContainer>
         <ReactApexChart
-          options={test.options}
-          series={test.series}
+          options={property.options}
+          series={property.series}
           type='line'
           height={toggle ? 150 : 320}
           width={toggle ? '100%' : 410}

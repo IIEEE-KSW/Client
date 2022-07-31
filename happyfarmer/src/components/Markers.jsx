@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Marker, Popup } from 'react-map-gl';
-import Pin from './Pin';
-// import pin from '../assets/pin.png';
-
-import moment from 'moment';
-
-import './map.css';
 import styled from 'styled-components';
+import { Marker, Popup } from 'react-map-gl';
+import moment from 'moment';
+import Pin from './Pin';
+import './map.css';
+
 import temperatureImg from '../assets/temperature.png';
 import humidityImg from '../assets/humidity.png';
 import anemometerImg from '../assets/anemometer.png';
 import pressureImg from '../assets/pressure.png';
+
 import { getStationSensorOne } from '../apis/api';
+
+//켈빈 -> 화씨
+const kvToFh = (kelvin) => {
+  const fahrenheit = (kelvin - 273.15) * (9 / 5) + 32;
+  const pointFix = fahrenheit.toFixed(0);
+  return pointFix;
+};
 
 const Markers = ({ id, lng, lat }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -20,7 +26,6 @@ const Markers = ({ id, lng, lat }) => {
   const [humidity, setHumidity] = useState(0);
   const [pressure, setPressure] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
-
   const [date, setDate] = useState(null);
 
   const handleClickMark = (e) => {
@@ -31,11 +36,10 @@ const Markers = ({ id, lng, lat }) => {
   //sensors value
   useEffect(() => {
     getStationSensorOne(id).then((data) => {
-      // console.log(data);
       if (data) {
-        setTemperature(data.air.temperature.toFixed(0));
+        setTemperature(kvToFh(data.air.temperature));
         setHumidity(data.air.humidity.toFixed(0));
-        setPressure(data.air.pressure.toFixed(0));
+        setPressure((data.air.pressure / 10).toFixed(0));
         setWindSpeed(data.windSpeed.toFixed(0));
 
         const ago = moment(data.dateTime).fromNow();
@@ -53,7 +57,6 @@ const Markers = ({ id, lng, lat }) => {
         anchor='center'
         onClick={handleClickMark}
       >
-        {/* <img src={pin} alt='pin' /> */}
         <Pin />
       </Marker>
       {showPopup && (
@@ -82,7 +85,7 @@ const Markers = ({ id, lng, lat }) => {
               <DataWrapper>
                 <DataContainer>
                   <Icon src={pressureImg} alt='pressure icon'></Icon>
-                  <Value>{pressure} ㎩</Value>
+                  <Value>{pressure} ㎪</Value>
                 </DataContainer>
                 <DataContainer>
                   <Icon src={anemometerImg} alt='anemometer icon'></Icon>
@@ -155,7 +158,7 @@ const DataContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1.6vh;
+  margin: 1.5vh 1vh;
   @media screen and (max-width: 767px) and (orientation: portrait) {
     margin: 1vh;
   }

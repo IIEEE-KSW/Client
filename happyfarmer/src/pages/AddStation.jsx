@@ -13,8 +13,7 @@ const AddStation = () => {
 
   const [showMsg, setShowMsg] = useState(false);
 
-  const onClickRegister = (e) => {
-    console.log(eui, name, latitude, longitude, zipCode);
+  const onClickRegister = () => {
     if (
       eui === '' ||
       name === '' ||
@@ -33,7 +32,7 @@ const AddStation = () => {
         zipCode: zipCode,
       };
       postStation(form).then((data) => {
-        //data 유효성 판단
+        //data 유효성 판단?
         setEui('');
         setName('');
         setLatitude(null);

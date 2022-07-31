@@ -1,9 +1,33 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Select from 'react-select';
-
-import { useDispatch } from 'react-redux';
 import { setId } from '../modules/station';
+
+const Search = ({ options }) => {
+  const dispatch = useDispatch();
+  const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
+
+  const handleSelectItem = (e) => {
+    const id = e.value;
+    setStationId(id);
+  };
+
+  return (
+    <Container>
+      <SelectContainer>
+        <Select
+          placeholder='Find by Zipcode'
+          styles={customStyles}
+          options={options}
+          onChange={handleSelectItem}
+        />
+      </SelectContainer>
+    </Container>
+  );
+};
+
+export default Search;
 
 const customStyles = {
   option: (provided, state) => ({
@@ -39,31 +63,6 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-
-function Search({ options }) {
-  const dispatch = useDispatch();
-  const setStationId = useCallback((id) => dispatch(setId(id)), [dispatch]);
-
-  const handleSelectItem = (e) => {
-    const id = e.value;
-    setStationId(id);
-  };
-
-  return (
-    <Container>
-      <SelectContainer>
-        <Select
-          placeholder='Find by Zipcode'
-          styles={customStyles}
-          options={options}
-          onChange={handleSelectItem}
-        />
-      </SelectContainer>
-    </Container>
-  );
-}
-
-export default Search;
 
 const Container = styled.div`
   width: 50vh;
