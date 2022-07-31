@@ -39,7 +39,7 @@ const Markers = ({ id, lng, lat }) => {
       if (data) {
         setTemperature(kvToFh(data.air.temperature));
         setHumidity(data.air.humidity.toFixed(0));
-        setPressure((data.air.pressure / 10).toFixed(0));
+        setPressure((data.air.pressure / 10).toFixed(1));
         setWindSpeed(data.windSpeed.toFixed(0));
 
         const ago = moment(data.dateTime).fromNow();

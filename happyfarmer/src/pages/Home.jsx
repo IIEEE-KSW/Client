@@ -128,7 +128,7 @@ const Home = () => {
         }));
         const pres = data.map((d) => ({
           x: d.dateTime,
-          y: (d.air.pressure / 10).toFixed(0),
+          y: (d.air.pressure / 10).toFixed(1),
         }));
 
         setTemperature(temp);
