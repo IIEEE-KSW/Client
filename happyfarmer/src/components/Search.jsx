@@ -48,6 +48,7 @@ const customStyles = {
     width: '100%',
     fontFamily: 'poppinsM',
     fontSize: '13px',
+    zIndex: 9999,
   }),
   control: (base, state) => ({
     ...base,
@@ -73,7 +74,7 @@ const Container = styled.div`
 `;
 
 const SelectContainer = styled.div`
-  padding: 1vh 0.7vh;
+  padding: 0.8vh 0.7vh;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 1px 3px 6px rgba(142, 142, 142, 0.16);
