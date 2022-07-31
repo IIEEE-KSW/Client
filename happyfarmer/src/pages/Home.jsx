@@ -31,7 +31,7 @@ const Home = () => {
 
   const centerRef = useRef({ lng: -86.91, lat: 40.42 }); //test
 
-  const [isGeoLoaded, setIsGeoLoaded] = useState(false);
+  const [isGeoLoaded, setIsGeoLoaded] = useState(true);
 
   const [options, setOptions] = useState([]);
   const [markers, setMarkers] = useState([]);
@@ -43,42 +43,42 @@ const Home = () => {
   const [toggle, setToggle] = useState(true);
 
   //데이터 쌓인 이후 현재 시간 기준으로 한 달치만 보여주기
-  const [startDate, setStartDate] = useState(
-    moment().format(`YYYY-MM-DDTHH:mm:ss`)
-  );
-  const [endDate, setEndDate] = useState(
-    moment().subtract(1, 'months').endOf('month').format(`YYYY-MM-DDTHH:mm:ss`)
-  );
+  // const [startDate, setStartDate] = useState(
+  //   moment().format(`YYYY-MM-DDTHH:mm:ss`)
+  // );
+  // const [endDate, setEndDate] = useState(
+  //   moment().subtract(1, 'months').endOf('month').format(`YYYY-MM-DDTHH:mm:ss`)
+  // );
 
-  const handleGeoSuccess = (pos) => {
-    const lng = pos.coords.longitude;
-    const lat = pos.coords.latitude;
-    const coordsObj = {
-      lng,
-      lat,
-    };
-    centerRef.current = coordsObj;
-    setIsGeoLoaded(true);
-    //현재 station id저장
-  };
+  // const handleGeoSuccess = (pos) => {
+  //   const lng = pos.coords.longitude;
+  //   const lat = pos.coords.latitude;
+  //   const coordsObj = {
+  //     lng,
+  //     lat,
+  //   };
+  //   centerRef.current = coordsObj;
+  //   setIsGeoLoaded(true);
+  //   //현재 station id저장
+  // };
 
-  const handleGeoError = (err) => {
-    console.log(err);
-  };
+  // const handleGeoError = (err) => {
+  //   console.log(err);
+  // };
 
   useEffect(() => {
     //현재 위치 업데이트
-    const getGeoLoc = () => {
-      if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser');
-      } else {
-        navigator.geolocation.getCurrentPosition(
-          handleGeoSuccess,
-          handleGeoError
-        );
-      }
-    };
-    getGeoLoc();
+    // const getGeoLoc = () => {
+    //   if (!navigator.geolocation) {
+    //     alert('Geolocation is not supported by your browser');
+    //   } else {
+    //     navigator.geolocation.getCurrentPosition(
+    //       handleGeoSuccess,
+    //       handleGeoError
+    //     );
+    //   }
+    // };
+    // getGeoLoc();
 
     //station 마커 표시
     getStationList().then((data) => {
