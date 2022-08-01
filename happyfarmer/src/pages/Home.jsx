@@ -17,6 +17,7 @@ import selectOff from '../assets/selectoff.png';
 import register from '../assets/register.png';
 
 import { getSensorList, getStation, getStationList } from '../apis/api';
+import { kvToFh } from '../utils/utils';
 
 const sliderSetting = {
   dots: true,
@@ -27,9 +28,10 @@ const sliderSetting = {
 };
 
 const Home = () => {
-  const stationId = useSelector(({ station }) => station.id);
+  const stationId = useSelector(({ station }) => station.id) || 31;
 
-  const centerRef = useRef({ lng: -86.91, lat: 40.42 }); //test
+  // const centerRef = useRef({ lng: -86.91, lat: 40.42 }); //test
+  const centerRef = useRef({ lng: null, lat: null }); //test
 
   const [isGeoLoaded, setIsGeoLoaded] = useState(true);
 
@@ -82,7 +84,6 @@ const Home = () => {
 
     //station 마커 표시
     getStationList().then((data) => {
-      console.log(data);
       const options = data.map((d) => ({
         value: d.id,
         label: d.name,
@@ -113,10 +114,9 @@ const Home = () => {
 
       //그래프 업데이트
       getSensorList(stationId).then((data) => {
-        console.log(data);
         const temp = data.map((d) => ({
           x: d.dateTime,
-          y: ((d.air.temperature - 273.15) * (9 / 5) + 32).toFixed(0),
+          y: kvToFh(d.air.temperature),
         }));
         const humi = data.map((d) => ({
           x: d.dateTime,
